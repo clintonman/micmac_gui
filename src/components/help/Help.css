@@ -1,0 +1,66 @@
+:root {
+    --micmac-purple: #280046;
+}
+/* changes needed for packaged result */
+.help-display {
+	margin: 1em;
+    padding: revert;
+}
+.help-display * {
+	margin: revert;
+    padding: revert;
+}
+
+/* Help.css start */
+.help-display {
+    padding: 1em;
+    border: 1px solid var(--micmac-purple);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* change needed for packaged result */
+.help-display a {
+    font-size: revert;
+    color: revert;
+}
+
+.help-controls li {
+    list-style: none;
+    margin-bottom: 1em;
+}
+.help-controls li h3 {
+    text-align: center;
+    text-decoration: underline;
+}
+.help-usage-list li {
+    margin-bottom: 0.75em;
+}
+h1 {
+    margin-top: 0;
+}
+.showHideLabel {
+    /* cursor: pointer; */
+    border: 1px solid #888;
+    border-radius: 0.2em;
+    padding: 0.25em 0.5em;
+    margin-bottom: 0.5em;
+    background-color: #eee;
+    font-size: 0.8em;
+}
+.showHideLabel:hover {
+    background-color: #ddd;
+}
+#cssHideBtn {
+    display:none;
+}
+#roughnotes{
+    display: none;
+    margin-top: 1em;
+}
+#cssHideBtn:checked ~ #roughnotes {
+    display: block;
+}
+#helpclosebutton {
+    margin-top: 1em;
+}
+/* Help.css end */

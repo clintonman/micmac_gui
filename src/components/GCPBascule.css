@@ -1,0 +1,32 @@
+/* GCPBascule.css start */
+.initialpoint-button-ran {
+    fill: #55ff00;
+    position: absolute;
+    left: 0.75em;
+    top: -0.5em;
+    width: 2.2em;
+    height: 2.2em;
+  }
+
+.controlscampari {
+  --numwidth: 5vw;
+  padding: 10px 20px;
+  background-color: var(--general-gray-bg);
+  color:rgb(231, 231, 231);
+  /* font-size: 1vw; */
+  min-width: 28em;
+  overflow-y:scroll;
+  display: grid;
+  align-content: flex-start;
+  justify-items: end;
+}
+
+.controlscampari button {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 12em;
+  min-height:20px;/*weird that need this */
+  /* justify-self: center; */
+  justify-self: start;
+}
+/* GCPBascule.css end */

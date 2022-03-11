@@ -1,0 +1,42 @@
+/* ImageCard.css start */
+.card {
+    background-color: rgb(51, 50, 50);
+    color: white;
+    line-height: 0.9em;
+    padding: 0;
+    width: calc(var(--card_image-height) * 3 / 2);/* 192 */
+    position: relative;
+    user-select: none;
+  }
+  .card figure {
+    margin: 0;
+    text-align: center;
+  }
+  .card img {
+    display:block;
+    width: 100%;
+    overflow: hidden;
+  }
+  .card_image {
+  width:100%;
+  height: var(--card_image-height);
+  overflow:hidden;
+  }
+  .card_image img {
+  width: 100%;
+  }
+  .card_name {
+  text-align: center;
+  margin:5px;
+  }
+  .card_info {
+  display:grid;
+  grid-template-columns: 1fr 0.8em 1fr;
+  justify-items: center;
+  align-items: center;
+  }
+  
+  .card p {
+    margin: 5px;
+  }
+  /* ImageCard.css end */

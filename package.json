@@ -1,0 +1,74 @@
+{
+  "name": "micmac_gui",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Clinton Reese <reese@clintons3d.com>",
+  "description": "MicMac simple graphical user interface",
+  "dependencies": {
+    "image-size": "~0.6.3",
+    "jpeg-exif": "~1.1.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "~4.3.1",
+    "react-scripts": "^2.1.8",
+    "rimraf": "~2.6.3",
+    "sharp": "^0.29.0",
+    "three": "^0.119.1",
+    "to-regex-range": "~4.0.2",
+    "tree-kill": "^1.2.2",
+    "xml2js": "~0.4.19"
+  },
+  "homepage": "./",
+  "main": "public/electron-starter.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "//": "below is for windows, for linux mac remove 'set' and '&&' ",
+    "electron-dev-win": "set NODE_ENV=development && set ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "electron-dev-linux": "NODE_ENV=development ELECTRON_START_URL=http://localhost:3000 electron .",
+    "electron:package:mac": "yarn build && electron-builder -m -c.extraMetadata.main=build/electron-starter.js",
+    "electron:package:win": "yarn build && electron-builder -w -c.extraMetadata.main=build/electron-starter.js",
+    "electron:package:linux": "yarn build && electron-builder -l -c.extraMetadata.main=build/electron-starter.js"
+  },
+  "devDependencies": {
+    "electron": "^15.3.2",
+    "electron-builder": "^22.14.13"
+  },
+  "//": "ubuntu libconf errors, fixed by running - sudo apt-get install libgconf2-4",
+  "browserslist": [
+    "last 1 electron version",
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "build": {
+    "appId": "com.clintons3d.micmacgui",
+    "productName": "MicMac GUI",
+    "files": ["build/**/*", "node_modules/**/*"],
+    "directories": {
+      "buildResources": "public"
+    },
+    "extraResources": ["./fonts/**"],
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon512x512.icns",
+      "category": "public.app-category.graphics-design"
+    },
+    "win": {
+      "target": ["portable", "nsis"],
+      "icon": "build/icon512x512.png"
+    },
+    "linux": {
+      "target": "deb",
+      "asarUnpack": [
+        "**/node_modules/sharp/**"
+      ],
+      "icon": "build/icon512x512.icns",
+      "category": "Graphics"
+    }
+  }
+}

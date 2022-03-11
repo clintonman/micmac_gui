@@ -1,0 +1,14 @@
+/* ImageSelection.css start */
+:root {
+    --card_image-height: 96px;/* will be variable - test shows math needs some work, auto line breaks make taller when small? */
+    --card_image-count: 500;
+}
+
+.image-list {
+    display: grid;
+    grid-template-columns: repeat(var(--card_image-count), calc(var(--card_image-height) * 3 / 2));
+    grid-gap: 4px;
+    width: 100%;
+    overflow-x: scroll;
+  }
+  /* ImageSelection.css end */

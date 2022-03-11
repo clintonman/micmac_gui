@@ -1,0 +1,53 @@
+/* Tapioca.css start */
+#tapioca-title-ran {
+    fill: #55ff00;
+    position: absolute;
+    left: -1em;
+    top: 0;
+    width: 1.3em;
+    height: 1.3em;
+}
+#tapioca-button-ran,
+#schnaps-button-ran {
+    fill: #55ff00;
+    position: absolute;
+    left: -0.75rem;
+    top: -0.5em;
+    width: 2.2em;
+    height: 2.2em;
+}
+
+.tiepoint-image-section .slideleft {
+    transform: translateX(-2px);
+    animation-name: none;
+  }
+  .tiepoint-image-section .slideright {
+    transform: translateX(2px);
+    animation-name: none;
+  }
+
+  .help {
+      display: block;
+      position: absolute;
+      right:-9vw;
+    }
+    .hoverhelp {
+        position:relative;
+    }
+.hoverhelp:hover .help {
+    display:block;
+}
+.hoverhelp:hover {
+    color:green;
+}
+#helpDisplay {
+    position: absolute;
+    top: 94px;
+    left:430px;
+    background-color: white;
+    padding: 20px;
+}
+.contexthelp {
+    cursor: help;
+}
+/* Tapioca.css end */
