@@ -50,7 +50,7 @@ export function buildcommand(newState) {
 
     // tequila says 4096 default, but will actually use 8192 as the default value
     // if(+newState.sz !== 4096) {
-    if(+newState.sz !== 8196) {
+    if(+newState.sz !== 8192) {
         buildcommand += " Sz=" + newState.sz;
     }
     if(+newState.scale !== 2) {
