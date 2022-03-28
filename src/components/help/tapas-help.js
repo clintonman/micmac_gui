@@ -75,7 +75,7 @@ tapashelp.TapasGeneral =
             <li><strong>Two lens workflow</strong> - check if more than 1 focal length is used in the images</li>
             <li><strong>_with calibration</strong> - check if the calibration images are included with the 2 focal lengths. 
             Assumes one wide fl for the whole model and a narrow fl zoomed in for details</li>
-            <li><strong>Use Old Tapas</strong> - old version of the command can be tried if the new one fails for some reason</li>
+            {/* <li><strong>Use Old Tapas</strong> - old version of the command can be tried if the new one fails for some reason</li> */}
             <li><strong>Text tie points</strong> - read text format tie point files instead of the default binary format</li>
             <li><strong>FL min max</strong> - minimum/maximum focal length of the images files to process</li>
 

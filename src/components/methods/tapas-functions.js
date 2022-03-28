@@ -51,9 +51,9 @@ export function buildcamparicommand(newState) {
 export function buildcommand(newState) {
     // console.log("tapas buildcommand")
     var buildcommand = 'mm3d Tapas ' + newState.mode + " ";
-    if(newState.useOldTapas) {
-        buildcommand = 'mm3d OldTapas ' + newState.mode + " ";
-    }
+    // if(newState.useOldTapas) {
+    //     buildcommand = 'mm3d OldTapas ' + newState.mode + " ";
+    // }
 
     buildcommand += '"' + this.fileregex + '"';
 
@@ -679,9 +679,9 @@ export function updatecommand(event) {
         newState.in_orientation_manual = newValue;
     }
 
-    if(changedItem === "useOldTapas") {
-        newState.useOldTapas = !newState.useOldTapas;
-    }
+    // if(changedItem === "useOldTapas") {
+    //     newState.useOldTapas = !newState.useOldTapas;
+    // }
     if(changedItem === "mode") {
         newState.mode = newValue;
     }

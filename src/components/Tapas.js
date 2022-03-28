@@ -52,7 +52,7 @@ class Tapas extends Component {
             outcalib: "All",
             command: 'mm3d Tapas RadialBasic "' + props.imageRegex + '" Out=' + Out,
             batchIsRunning: false,
-            useOldTapas: false,
+            // useOldTapas: false,
             twoLens: twoLens,
             withCalib: twoLens,
             SH: SH,
@@ -387,14 +387,13 @@ class Tapas extends Component {
                         onChange={this.updatecommand}
                          />
 
-                <label htmlFor="useOldTapas">Use Old Tapas</label>
+                {/* <label htmlFor="useOldTapas">Use Old Tapas</label>
                 <input 
-                    // className={`command ${this.state.hidecommandinput ? "command_hidden" : ""}`}
                     id="useOldTapas" 
                     type="checkbox" 
                     checked={this.state.useOldTapas} 
                     onChange={this.updatecommand}
-                    title="use old version of Tapas"/>
+                    title="use old version of Tapas"/> */}
 
                 <label htmlFor="exptxt">Text tie points</label>
                 <input 
