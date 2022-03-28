@@ -8,6 +8,7 @@ export const updateMaskStatus = function() {
 // console.log("updateMaskStatus")
 // console.log(this)
   if(this.state.imageList.length === 0) return;
+  if(!this.props.location) return;
 
   const newImageList = [...this.state.imageList];
   // let maskFound = false;
