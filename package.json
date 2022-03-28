@@ -1,6 +1,6 @@
 {
   "name": "micmac_gui",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "author": "Clinton Reese <reese@clintons3d.com>",
   "description": "MicMac simple graphical user interface",
