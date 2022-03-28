@@ -346,7 +346,8 @@ class App extends Component {
                   tapiocaran={this.state.tapiocaran}
                   useSaisieMasqQT={this.state.useSaisieMasqQT}
                   schnapsran={this.state.schnapsran}
-                  saveBatch={this.saveBatch}>
+                  saveBatch={this.saveBatch}
+                  updateMaskButtons={this.updateMaskStatus}>
                 </Tapioca>
               )}/>
 
@@ -392,7 +393,8 @@ class App extends Component {
                   updateResidualError={this.updateResidualError}
                   useSaisieMasqQT={this.state.useSaisieMasqQT}
                   saveBatch={this.saveBatch}
-                  max3dpoints={this.max3dpoints}>
+                  max3dpoints={this.max3dpoints}
+                  updateMaskButtons={this.updateMaskStatus}>
                 </SBGlobBascule>
               )}/>
               <Route path='/gcpbascule' render={(props) => (
@@ -420,7 +422,8 @@ class App extends Component {
                   globalEnv={this.globalEnv}
                   useSaisieMasqQT={this.state.useSaisieMasqQT}
                   saveBatch={this.saveBatch}
-                  max3dpoints={this.max3dpoints}>
+                  max3dpoints={this.max3dpoints}
+                  updateMaskButtons={this.updateMaskStatus}>
                 </C3DC>
                 )}/>
               <Route path='/tipunch' render={(props) => (

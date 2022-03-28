@@ -192,6 +192,8 @@ class Tapioca extends Component {
             this.state.svglines = newtp.svglines;
             this.state.tiedata = newtp.tiedata;
         }
+
+        this.props.updateMaskButtons();
     }
 
     setOrientation = (event) => {

@@ -52,10 +52,15 @@ export const prepSaisieMasq = (who, state, props, alertsActive) => {
         commandarraytext = [theSaisie, state.imageList[selectedIndex].name];
     }
 
-    if(who === "SBGlobBascule" || who === "C3DC") {
+    if(who === "SBGlobBascule") {
         // _MasqPlane - so different from Homol masking _Mask
         // commandarraytext = [theSaisie, imgPath, "Post=_MasqPlane"];
         commandarraytext = [theSaisie, state.imageList[selectedIndex].name, "Post=_MasqPlane"];
+    }
+    if(who === "C3DC") {
+        // _MasqPlane - so different from Homol masking _Mask
+        // commandarraytext = [theSaisie, imgPath, "Post=_MasqPlane"];
+        commandarraytext = [theSaisie, state.imageList[selectedIndex].name, "Post=_MasqRep"];
     }
 
     return commandarraytext;

@@ -10,29 +10,48 @@ export const updateMaskStatus = function() {
   if(this.state.imageList.length === 0) return;
 
   const newImageList = [...this.state.imageList];
-  let maskFound = false;
+  // let maskFound = false;
   newImageList.forEach(img => {
+    // maskFound = false;
+    img.masked = false;
 
     let basename = path.basename(img.name, ".jpg");
 
-    let tifname = path.join(this.state.tempDir, basename + "_Masq.tif")
+    let tifname;
+    if(this.props.location.pathname === "/tapioca") {
+      tifname = path.join(this.state.tempDir, basename + "_Masq.tif");
+    }
+    if(this.props.location.pathname === "/c3dc") {
+      tifname = path.join(this.state.tempDir, basename + "_MasqRep.tif");
+    }
+    if(this.props.location.pathname === "/sbglobbascule") {
+      tifname = path.join(this.state.tempDir, basename + "_MasqPlane.tif");
+    }
 
     if(fs.existsSync(tifname)) {
-      maskFound = true;
+      // maskFound = true;
       img.masked = true;
     }
 
     basename = path.basename(img.name, ".JPG");
 
-    tifname = path.join(this.state.tempDir, basename + "_Masq.tif")
+    if(this.props.location.pathname === "/tapioca") {
+      tifname = path.join(this.state.tempDir, basename + "_Masq.tif");
+    }
+    if(this.props.location.pathname === "/c3dc") {
+      tifname = path.join(this.state.tempDir, basename + "_MasqRep.tif");
+    }
+    if(this.props.location.pathname === "/sbglobbascule") {
+      tifname = path.join(this.state.tempDir, basename + "_MasqPlane.tif");
+    }
 
     if(fs.existsSync(tifname)) {
-      maskFound = true;
+      // maskFound = true;
       img.masked = true;
     }
   });
 
-  if(!maskFound) return;
+  // if(!maskFound) return;
 
   this.setState({
     ...this.state,

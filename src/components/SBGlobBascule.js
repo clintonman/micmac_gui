@@ -92,6 +92,8 @@ class SBGlobBascule extends Component {
         }
         props.setStatus(this.batchState);
         props.updateOriCalOptions();
+
+        this.props.updateMaskButtons();
     }
 
     clearBatchState = () => {

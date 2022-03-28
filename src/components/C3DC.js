@@ -61,9 +61,9 @@ class C3DC extends Component {
             meshlabplyfile: '',
             localRepair: false,
             enablePLY: false,
-            thereplocbasculecommand: "mm3d RepLocBascule images CampariOut HOR LocalRepair.xml PostPlan=_MasqPlane",
+            thereplocbasculecommand: "mm3d RepLocBascule images CampariOut HOR LocalRepair.xml PostPlan=_MasqRep",
             apero2meshlabCommand: 'mm3d Apero2Meshlab "' + props.imageRegex + '" ' + orientation + ' UnDist=0',
-            saisiemasqimgCommand: 'mm3d ' + (props.useSaisieMasqQT ? "SaisieMasqQT " : "SaisieMasq ") + props.imageRegex + " Post=_MasqPlane",
+            saisiemasqimgCommand: 'mm3d ' + (props.useSaisieMasqQT ? "SaisieMasqQT " : "SaisieMasq ") + props.imageRegex + " Post=_MasqRep",
             bascline: 'HOR',
             orthocyl: false,
             lineheight: 1
@@ -111,6 +111,8 @@ class C3DC extends Component {
         }
 
         props.updateOriCalOptions();
+
+        this.props.updateMaskButtons();
     }
 
     clearBatchState = () => {
@@ -131,7 +133,8 @@ class C3DC extends Component {
         // buildcommand += newState.orientation + " HOR LocalRepair.xml PostPlan=_MasqPlane";
         buildcommand += newState.orientation + " " + newState.bascline + " LocalRepair.xml";
         buildcommand += (newState.exptxt ? " ExpTxt=1" : "");
-        buildcommand += " PostPlan=_MasqPlane";
+        // buildcommand += " PostPlan=_MasqPlane";
+        buildcommand += " PostPlan=_MasqRep";
         if(newState.orthocyl) {
             buildcommand += " OrthoCyl=1"
         }

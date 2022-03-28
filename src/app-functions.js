@@ -164,8 +164,11 @@ export function disableApp() {
     if(this.props.location.pathname === "/tapioca") {
       commandarraytext = [theSaisie, image];
     }
-    if(this.props.location.pathname === "/sbglobbascule" || this.props.location.pathname === "/c3dc") {
+    if(this.props.location.pathname === "/sbglobbascule") {
       commandarraytext = [theSaisie, image, "Post=_MasqPlane"];
+    }
+    if(this.props.location.pathname === "/c3dc") {
+      commandarraytext = [theSaisie, image, "Post=_MasqRep"];
     }
     if(commandarraytext.length === 0) {
       window.alert("Images can only be masked in the Tapioca, SBGlobBascule and C3DC tabs.")
