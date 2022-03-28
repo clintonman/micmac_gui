@@ -25,7 +25,13 @@ gcpbasculehelp.GCPBasculeGeneral =
         <li><strong>Add New Point</strong> - type in point data instead of importing</li>
         <li><strong>Create Measurements Files(Txt and Xml)</strong> - will create text and xml format measurement files in the working folder</li>
         <li><strong>Orientation in</strong> - usually the Tapas output result</li>
-        <li>Import Final 2D Measurements File - import tutorial file data</li>
+        <li><strong>Import as final 2D file</strong> - when checked will import the file and rename it to "PredicImageMeasurements-S2D.xml" 
+        to be used in <span style={{textDecoration:"underline"}}>Process Final 2D Measurements</span>,
+        when unchecked the file name will be named "InitialImageMeasurements-S2D.xml" 
+        which will be used in <span style={{textDecoration:"underline"}}>Process Initial 2D Measurements</span>.</li>
+        <li><strong>Import 2D Measurements File</strong> - import tutorial 2D point file data<br/>
+        If <em>Import as final 2D file</em> is checked the next step is to process the final 2D measurements, press the <em>Basc Predic</em> button.<br/>
+        If <em>Import as final 2D file</em> is not checked then next step is to process the initial 2D measurements, press the <em>Initial Points</em> button.</li>
         <li><h3>Define Initial 2D Image Points</h3><p>(SaisieAppuisInit) Measure at least 3 GCP in at least 2 images.</p></li>
         <li><strong>Select Point</strong> - add line to choose a point and an image to define that points location.
             A small number of points will be used for the initial measurements
@@ -261,6 +267,9 @@ gcpbasculehelp.Campari =
     <h2>Controls</h2>
     <ul className='help-controls'>
         <li><h3>Campari GCPBascule controls</h3></li>
+        <li><strong>Final 2D</strong> use the 2D file from the final measurments in the GCP param section</li>
+        <li><strong>Initial 2D</strong> use the 2D file from the initial measurments in the GCP param section</li>
+        <li><strong>Text tie points</strong> Tapioca was run with the text format output</li>
         <li><strong>Use GCP param</strong> "GCP=" section will be added to the command</li>
         <li><strong>Orientation out</strong> - destination folder for the computed results</li>
         <li><strong>measurement uncertainty</strong> - GCP measurement uncertainty in the units of measure(meters, inches etc.)</li>

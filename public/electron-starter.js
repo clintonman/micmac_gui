@@ -350,18 +350,26 @@ const template = [
       ])
     ]
   },
-  // {
-  //   role: 'help',
-  //   submenu: [
-  //     {
-  //       label: 'Learn More',
-  //       click: async () => {
-  //         const { shell } = require('electron')
-  //         await shell.openExternal('https://electronjs.org')
-  //       }
-  //     }
-  //   ]
-  // }
+  {
+    role: 'help',
+    submenu: [
+      {
+        label: 'About',
+        // click: async () => {
+          // const { shell } = require('electron')
+          // await shell.openExternal('https://electronjs.org')
+        click: () => {
+          const {dialog} = require('electron');
+          dialog.showMessageBox({ 
+            title: "MicMac GUI",
+            buttons: ['ok'],
+            message: "MicMac Graphical User Interface\nVersion " + app.getVersion()
+            });
+        }
+
+      }
+    ]
+  }
 ]
 
 const menu = Menu.buildFromTemplate(template)
