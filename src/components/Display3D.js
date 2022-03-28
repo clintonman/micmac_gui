@@ -113,7 +113,7 @@ class Display3D extends Component {
 
         // let fontPath = path.join(process.resourcesPath, 'extraResources', 'fonts', 'Open Sans Light_Regular.json');
         let fontPath = path.join(resourcePath, 'fonts', 'Open Sans Light_Regular.json');
-        console.log(fontPath);
+        // console.log(fontPath);
         loader.load(path.join(fontPath), ( font ) => {
             this.font = font;
         });
@@ -168,7 +168,7 @@ class Display3D extends Component {
     }
 
     componentDidMount() {
-        console.log("display3d component did mount")
+        // console.log("display3d component did mount")
 
         window.addEventListener( 'resize', this.onWindowResize, false );
         

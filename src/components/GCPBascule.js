@@ -110,7 +110,9 @@ class GCPBascule extends Component {
             usecamparigcp: true,
             saisieappuispredicCommand: 'mm3d SaisieAppuisPredicQT "'  + props.imageRegex + ' GCPBascInitOut OnSiteMeasure.xml PredicImageMeasurements.xml',
             in_options: [""],
-            exptxt: false
+            exptxt: false,
+            final2d: true,
+            measurechoice: "use_final"
         }
 
         //if tapioca exptxt update tapas exptxt
@@ -161,6 +163,17 @@ class GCPBascule extends Component {
         props.setStatus(this.batchState);
 
         props.updateOriCalOptions();
+    }
+
+    updateValue = (event) => {
+        const changedItem = event.target.id;
+        const newState = {...this.state};
+
+        if(changedItem==="final2d") {
+            newState.final2d = !newState.final2d;
+        }
+
+        this.setState(newState);
     }
 
     clearBatchState = () => {
@@ -276,12 +289,21 @@ class GCPBascule extends Component {
                 </div>
 
                 <div className="Controls">
-
+                    <label>Import as final 2D file
+                        <input 
+                            id="final2d" 
+                            type="checkbox"
+                            checked={this.state.final2d}
+                            onChange={this.updateValue}
+                            title="checked: fully defined points, unchecked: initial points defined"
+                            style={{marginBottom: "0.5em"}}
+                            />
+                    </label>
                     <button 
-                        style={{width: "60%",marginBottom: "15px"}}
+                        style={{width: "18em", justifySelf: "center", marginBottom: "18px"}}
                         onClick={this.copy2DXMLfile}
-                        title="for loading preprocessed measurement data into PredicImageMeasurements-S2D.xml">
-                            Import Final 2D Measurements File
+                        title="for loading preprocessed 2D measurement data">
+                            Import 2D Measurements File
                     </button>
                     {/* <h3 style={{width:"100%", borderTop:"1px solid yellow", margin:"10px", paddingTop:"5px", textAlign:"center"}}></h3> */}
                     <div className="endsection">
@@ -378,6 +400,27 @@ class GCPBascule extends Component {
 
                 <div className="controlscampari">
                     <h3>Apply Measurements</h3>
+                    <label>Final 2D
+                        <input 
+                            type="radio"  
+                            value="use_final" 
+                            id="use_final" 
+                            checked={this.state.measurechoice==="use_final"} 
+                            onChange={this.updateCampariCommand}
+                            title="use final measurements" />
+                        
+                    </label>
+                    <label>Initial 2D
+                        <input 
+                            type="radio"  
+                            value="use_initial" 
+                            id="use_initial" 
+                            checked={this.state.measurechoice==="use_initial"} 
+                            onChange={this.updateCampariCommand}
+                            title="use initial measurements" />
+                        
+                    </label>
+                    
                     <label>Text tie points
                         <input 
                             id="exptxt" 

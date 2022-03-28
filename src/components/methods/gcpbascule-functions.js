@@ -56,7 +56,7 @@ const SaisieAppuisInit = (props) => {
     });
 
     values.push(linevals)
-    console.log(props)
+    // console.log(props)
     values.push(<button key="selectpointbutton" 
         title="select a point to be added to the inital image measurements"
         onClick={props.selectPoint}
@@ -92,11 +92,19 @@ export function addPoint() {
  export function buildCampriCommand(newState) {
     let buildcommand;
     buildcommand = 'mm3d Campari "' + newState.imageRegex +  '" ';
-    buildcommand += newState.gcpbascpredicout + " " + newState.campariout;
+    if(newState.measurechoice === "use_final") {
+        buildcommand += newState.gcpbascpredicout + " " + newState.campariout;
+    } else {
+        buildcommand += newState.gcpbascinitout + " " + newState.campariout;
+    }
     
     if(newState.usecamparigcp) {
         buildcommand += ' GCP=[' + newState.onsitegcpxml + '.xml,' 
-        buildcommand += newState.uncertainty + ',PredicImageMeasurements-S2D.xml,';
+        if(newState.measurechoice === "use_final") {
+            buildcommand += newState.uncertainty + ',PredicImageMeasurements-S2D.xml,';
+        } else {
+            buildcommand += newState.uncertainty + ',InitialImageMeasurements-S2D.xml,';
+        }
         buildcommand += newState.uncertaintyPixel + ']';
     }
     
@@ -148,8 +156,21 @@ export function copy2DXMLfile() {
     if(!res) {
         return;
     }
-    fs.copyFileSync(res[0], path.join(this.state.tempDir, "PredicImageMeasurements-S2D.xml"));
-    window.alert(`file copied to "PredicImageMeasurements-S2D.xml", the file may need editing depending on if the original image filenames were altered`);
+
+    const newState = {...this.state};
+    
+    if(this.state.final2d) {
+        fs.copyFileSync(res[0], path.join(this.state.tempDir, "PredicImageMeasurements-S2D.xml"));
+        newState.measurechoice = "use_final";
+        window.alert(`file copied to "PredicImageMeasurements-S2D.xml", the file may need editing depending on if the original image filenames were altered`);
+    } else {
+        fs.copyFileSync(res[0], path.join(this.state.tempDir, "InitialImageMeasurements-S2D.xml"));
+        newState.measurechoice = "use_initial";
+        window.alert(`file copied to "InitialImageMeasurements-S2D.xml", the file may need editing depending on if the original image filenames were altered`);
+    }
+    this.buildCampriCommand(newState);
+    this.setState(newState);
+    
     //note simple copy, no check of proper file format
 }
 
@@ -493,13 +514,21 @@ export function runBascCommand(bascinit) {
     }
     
     let commandarray;
+    let newState = {...this.state};
     if(bascinit) {
         commandarray = this.state.thebascinitcommand.split(" ");
     } else {
         commandarray = this.state.thebascprediccommand.split(" ");
+        newState.measurechoice = "use_final"
+        this.buildCampriCommand(newState);
     }
+    // this.setState({
+    //     ...this.state, 
+    //     batchIsRunning: true,
+    // })
+
     this.setState({
-        ...this.state, 
+        newState, 
         batchIsRunning: true,
     })
     this.clearBatchState();
@@ -846,6 +875,12 @@ export function updateCampariCommand(event) {
     }
     if(changedItem==="exptxt") {
         newState.exptxt = !newState.exptxt;
+    }
+    if(changedItem==="use_final") {
+        newState.measurechoice = "use_final";
+    }
+    if(changedItem==="use_initial") {
+        newState.measurechoice = "use_initial";
     }
 
     this.buildCampriCommand(newState);
