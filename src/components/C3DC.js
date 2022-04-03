@@ -313,7 +313,7 @@ class C3DC extends Component {
                     </div>
 
                 <h3>Orthophoto</h3>
-                <input type="text"
+                {/* <input type="text"
                     className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
                     id="saisiemasqimgCommand"
                     value={this.state.saisiemasqimgCommand}
@@ -321,7 +321,13 @@ class C3DC extends Component {
 
                 <button onClick={this.openSaisi} title="mask an image for face direction of orthophoto"
                     className="contexthelp" data-help="SaisieMasqRun" data-position="left" 
-                    onContextMenu={this.props.helpcontext}>Mask an image</button>
+                    onContextMenu={this.props.helpcontext}>Mask an image</button> */}
+                <p 
+                    title="mask an image for face direction of orthophoto"
+                    style={{marginBottom:"1.5em", fontSize:"1.2em"}}
+                    className="contexthelp" data-help="SaisieMasqRun" data-position="left" 
+                    onContextMenu={this.props.helpcontext}
+                    >Create masks to define the perpendicular Z axis below in the image list.</p>
 
                 <div className="label-input_group">
                     <label htmlFor="bascline">

@@ -199,7 +199,7 @@ class SBGlobBascule extends Component {
                     </div>
 
                     <div className="endsection">
-                        <input type="text"
+                        {/* <input type="text"
                             className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
                             id="saisiemasqimgCommand"
                             value={this.state.saisiemasqimgCommand}
@@ -208,7 +208,13 @@ class SBGlobBascule extends Component {
                             onClick={this.openSaisieMasq}
                             title="mask on 1 or more images to define the ground plane"
                             className="contexthelp" data-help="SaisieMasqRun" data-position="right"
-                            onContextMenu={this.props.helpcontext}>Mask Image</button>
+                            onContextMenu={this.props.helpcontext}>Mask Image</button> */}
+                        <p 
+                            title="mask on 1 or more images to define the ground plane"
+                            style={{fontSize:"1.2em"}}
+                            className="contexthelp" data-help="SaisieMasqRun" data-position="right"
+                            onContextMenu={this.props.helpcontext}
+                        >Create ground masks below in the image list.</p>
                     </div>
 
                     <div className="endsection subgrid">

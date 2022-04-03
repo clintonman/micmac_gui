@@ -426,7 +426,7 @@ class Tapioca extends Component {
                     </div>
                     <div className="tapioca-group4">
                 <div className="label-input_group">
-                        <label htmlFor="circle">Image contrast</label>
+                        <label htmlFor="circle">Enhance contrast</label>
                         <input id="enhanceContrast" 
                             type="checkbox"
                             checked={this.state.enhancedContrast} 
@@ -472,7 +472,7 @@ class Tapioca extends Component {
                             >Clear previous</button>
                     </div>
 
-                    <input type="text"
+                    {/* <input type="text"
                         className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
                         id="saisiemasqimgCommand"
                         value={this.state.saisiemasqimgCommand}
@@ -481,7 +481,13 @@ class Tapioca extends Component {
 
                     <button onClick={this.openSaisi} title="create a mask image for filtering tie points"
                         className="contexthelp griditemleft" data-help="SaisieMasqRun" data-position="right" 
-                        onContextMenu={this.props.helpcontext}>Mask an image</button>
+                        onContextMenu={this.props.helpcontext}>Mask an image</button> */}
+                    <p 
+                        title="create a mask image for filtering tie points"
+                        style={{marginBottom:"1.5em", fontSize:"1.2em"}}
+                        className="contexthelp griditemleft" data-help="SaisieMasqRun" data-position="right" 
+                        onContextMenu={this.props.helpcontext}
+                    >Create masks below in the image list.</p>
 
                     <input type="text"
                         className="command_input"

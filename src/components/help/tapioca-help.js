@@ -46,7 +46,7 @@ tapiocahelp.TapiocaGeneral =
             Digeo can cause Tapas to fail on a poor dataset.</li>
         <li><strong>Ratio</strong> - higher values result in more, lower quality matches, lower values will give fewer higher quality matches</li>
         <li><strong>Text format</strong> - will write the tie point data as text files instead of binary data.</li>
-        <li><strong>Image contrast</strong> - will increase the contrast of the images before the feature search.</li>
+        <li><strong>Enhance contrast</strong> - will increase the contrast of the images before the feature search.</li>
         <li><strong>Select Previous</strong> - create image selection from previous tapioca runs to be combined with subsequent tapioca runs.
             Combine the 2 runs together, finding matches between the 2 groups but not within the groups.</li>
         <p>Can be used to add one or more images later to improve the final MicMac result.</p>

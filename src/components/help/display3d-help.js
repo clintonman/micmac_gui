@@ -20,7 +20,7 @@ display3dhelp.Display3D =
     <p>Face count - number of triangles in the mesh</p>
     <p><strong>Ground defined</strong> - changes the style of rotation so that the view is always above ground and Z always points up and panning is in the XY directions.</p>
     <p><strong>Show GCP</strong> - will show the ground control points</p>
-    <p><strong>Center mesh</strong> - center the mesh in the view. When unchecked it will use the coordinate system of the point cloud</p>
+    <p><strong>Center mesh</strong> - center the mesh in the view. If cameras are included in the Apericloud run, their positions will be used in the calculation for the mesh center. When unchecked it will use the coordinate system of the point cloud</p>
     <p><strong>Point size</strong> - increase or decrease the size of the points displayed</p>
     <p><strong>Orientation</strong> - source for the camera position and rotation</p>
     <p><strong>Show cameras</strong> - display cameras as wirefame pyramid shapes with text labels</p>
