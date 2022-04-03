@@ -91,6 +91,7 @@ class Tapioca extends Component {
             previouspattern: '',
             exptxt: false,
             saisieappuisinitCommand: 'mm3d SaisieAppuisInitQT "et002.jpg" NONE TiePointsList.txt TiePoints.xml',
+            enhanceContrast: false
         }
 
         if(props.imageList.length > 0) {
@@ -421,6 +422,16 @@ class Tapioca extends Component {
                             checked={this.state.exptxt} 
                             onChange={this.updatecommand}
                             title="export results as text format files"/>
+                    </div>
+                    </div>
+                    <div className="tapioca-group4">
+                <div className="label-input_group">
+                        <label htmlFor="circle">Image contrast</label>
+                        <input id="enhanceContrast" 
+                            type="checkbox"
+                            checked={this.state.enhancedContrast} 
+                            onChange={this.updatecommand}
+                            title="increase the contrast of images before processing"/>
                     </div>
                     </div>
                     <textarea id="previouspattern" className={`command ${this.state.hidecommandinput ? "mincommand" : "height2"}`}

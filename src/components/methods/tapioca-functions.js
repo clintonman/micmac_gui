@@ -52,6 +52,10 @@ export function buildcommand(newState) {
         buildcommand += ' Pat2="' + newState.previouspattern + '"';
     }
 
+    if(newState.enhanceContrast) {
+        buildcommand += " @SFS";
+    }
+
     newState.command = buildcommand;
 }
 
@@ -611,7 +615,7 @@ export function runSchnaps() {
             return;
         }
         let count = this.props.imageList.reduce((acc, val) => val.selected ? acc + 1 : acc, 0);
-        if(count<3) {
+        if(count < 2) {
             return;
         }
 
@@ -767,6 +771,10 @@ export function updatecommand(event) {
 
     if(changedItem==="exptxt") {
         newState.exptxt = !newState.exptxt;
+    }
+
+    if(changedItem==="enhanceContrast") {
+        newState.enhanceContrast = !newState.enhanceContrast;
     }
 
     if(changedItem === "sizescale") {
