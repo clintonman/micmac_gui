@@ -377,6 +377,10 @@ export function loadMesh() {
 }
 
 export function loadPLY() {
+    if(this.isLoading) {
+        return;
+    }
+
     this.enablePLY = false;
 
     this.props.updateParentState({
@@ -409,6 +413,7 @@ export function loadPLY() {
     }
 
     let theplyfile = this.state.plyFile;
+    this.isLoading = true;
     loader.load('file:///' + this.state.plyFile, ({
         geometry,
         header}) => {
@@ -649,7 +654,9 @@ export function loadPLY() {
             appBusy: false,
             camFontSize: this.sphereRadius * 0.02,
             threeviewhelp0: theplyfile
-        })
+        });
+        
+        this.isLoading = false;
     });
 }
 

@@ -97,6 +97,7 @@ class Display3D extends Component {
         this.gcp = [];
 
         this.enablePLY = true;
+        this.isLoading = false;
 
         this.boundingSphere = new THREE.Sphere();
         this.Material = null;
