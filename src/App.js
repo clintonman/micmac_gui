@@ -97,7 +97,7 @@ class App extends Component {
       useSaisieMasqQT: true,
       imagesloaded: false,
       updateRunListFile: false,
-      beep: true,
+      beep: false,
       schnapsran: false,
       hidecommandinput: true,
       regexError: false,

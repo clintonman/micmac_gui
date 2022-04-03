@@ -59,7 +59,7 @@ class Tequila extends Component {
             lambdaDisabled: true,
             iter: 2,
             iterDisabled: true,
-            sz: 4096,
+            sz: 8192,
             scale: 2,
             qual: 70,
             angle: 90,

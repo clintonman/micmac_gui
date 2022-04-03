@@ -30,6 +30,7 @@ tequilahelp.TequilaGeneral =
         <li><strong>Texture</strong> - texture file, timestamp is added for subsequent runs</li>
         <li><strong>Run</strong> - generate the uv textured mesh</li>
     </ul>
+    <p>If the error "Warning: scaling factor too low, try higher texture size(Parameter Sz)" then increase the value of the Max texture size.</p>
     <p><a href="https://micmac.ensg.eu/index.php/Tequila" target="_blank" rel="noopener noreferrer">https://micmac.ensg.eu/index.php/Tequila</a></p>
 
     <label className = "showHideLabel" htmlFor="cssHideBtn">Rough Notes</label>
