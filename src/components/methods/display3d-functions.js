@@ -106,7 +106,7 @@ export function exportMesh() {
 }
 
 export function loadCameraLights(camFontSize) {
-
+console.log("camfontsize " + camFontSize)
     //get file list in Ori-"orientation"
     //filter for filename "Orientation-" start
     //camera name between "Orientation-" and ".JPG.xml" ending
@@ -218,9 +218,12 @@ export function loadCameraLights(camFontSize) {
                     textMeshTarget.position.y += _this.meshPosition.y;
                     textMeshTarget.position.z += _this.meshPosition.z;
                 }
-                textMeshTarget.scale.x = _this.sphereRadius * 0.1;
-                textMeshTarget.scale.y = _this.sphereRadius * 0.1;
-                textMeshTarget.scale.z = _this.sphereRadius * 0.1;
+                // textMeshTarget.scale.x = _this.sphereRadius * 0.1;
+                // textMeshTarget.scale.y = _this.sphereRadius * 0.1;
+                // textMeshTarget.scale.z = _this.sphereRadius * 0.1;
+                textMeshTarget.scale.x = camFontSize * 5;
+                textMeshTarget.scale.y = camFontSize * 5;
+                textMeshTarget.scale.z = camFontSize * 5;
                 textMeshTarget.name = "MicMac_" + elemtext;
                 _this.scene.add(textMeshTarget);
 
@@ -308,9 +311,12 @@ export function loadGCP(camFontSize) {
         });
         var textMesh = new THREE.Mesh(geometry, textmaterial);
 
-        textMesh.position.x = +newgcp[i].x + this.sphereRadius * 0.1 * 0.25;
-        textMesh.position.y = +newgcp[i].y + this.sphereRadius * 0.1 * 0.25;
-        textMesh.position.z = +newgcp[i].z + this.sphereRadius * 0.1 * 0.25;
+        // textMesh.position.x = +newgcp[i].x + this.sphereRadius * 0.1 * 0.25;
+        // textMesh.position.y = +newgcp[i].y + this.sphereRadius * 0.1 * 0.25;
+        // textMesh.position.z = +newgcp[i].z + this.sphereRadius * 0.1 * 0.25;
+        textMesh.position.x = +newgcp[i].x;
+        textMesh.position.y = +newgcp[i].y;
+        textMesh.position.z = +newgcp[i].z;
         if (this.state.centermesh) {
             textMesh.position.x += this.meshPosition.x;
             textMesh.position.y += this.meshPosition.y;
@@ -334,9 +340,12 @@ export function loadGCP(camFontSize) {
             textMeshTarget.position.y += this.meshPosition.y;
             textMeshTarget.position.z += this.meshPosition.z;
         }
-        textMeshTarget.scale.x = this.sphereRadius * 0.1;
-        textMeshTarget.scale.y = this.sphereRadius * 0.1;
-        textMeshTarget.scale.z = this.sphereRadius * 0.1;
+        // textMeshTarget.scale.x = this.sphereRadius * 0.1;
+        // textMeshTarget.scale.y = this.sphereRadius * 0.1;
+        // textMeshTarget.scale.z = this.sphereRadius * 0.1;
+        textMeshTarget.scale.x = camFontSize * 5;
+        textMeshTarget.scale.y = camFontSize * 5;
+        textMeshTarget.scale.z = camFontSize * 5;
         textMeshTarget.name = "GCP_" + newgcp[i].name;
         this.scene.add(textMeshTarget);
 
@@ -644,7 +653,8 @@ export function loadPLY() {
 
         this.unloadCameraLights();
         if (this.state.showCameraLights) {
-            this.loadCameraLights(this.sphereRadius * 0.02);
+            // this.loadCameraLights(this.sphereRadius * 0.02);
+            this.loadCameraLights(this.state.camFontSize);
         }
 
         this.render3d();
@@ -652,7 +662,7 @@ export function loadPLY() {
         this.setState({
             ...this.state,
             appBusy: false,
-            camFontSize: this.sphereRadius * 0.02,
+            // camFontSize: this.sphereRadius * 0.02,
             threeviewhelp0: theplyfile
         });
         
@@ -1094,6 +1104,35 @@ export function updateCameraLights(newImageSelection, camFontSize) {
             }
         }
     })
+
+    if(this.gcp.length > 0) {
+        console.log("do gcp here");
+        // var gcp = {
+        //     name: newgcp[i].name,
+        //     mesh: textMesh,
+        //     sphere: textMeshTarget
+        // };
+        
+        this.gcp.forEach(elem => {
+            console.log(elem.name);
+            elem.mesh.geometry.dispose();
+            var geometry = new THREE.TextBufferGeometry(elem.name, {
+                font: this.font,
+                size: camFontSize,
+                height: camFontSize * 0.1,
+                curveSegments: 3,
+                bevelEnabled: false,
+                bevelThickness: 4,
+                bevelSize: 2,
+                bevelSegments: 5
+            });
+            elem.mesh.geometry = geometry;
+            elem.sphere.scale.x = camFontSize * 5;
+            elem.sphere.scale.y = camFontSize * 5;
+            elem.sphere.scale.z = camFontSize * 5;
+            // this.sphereRadius * 0.1
+        })
+    }
 }
 
 export function updatevalues(event) {

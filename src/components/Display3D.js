@@ -12,7 +12,7 @@ class Display3D extends Component {
         this.camera = new THREE.PerspectiveCamera( 35, 1, 0.2, 2000 );
         this.camera.up.set(0,0,1);
         this.cameraTarget = new THREE.Vector3( 0, 0, 0 );
-        this.sphereRadius = 4;
+        this.sphereRadius = 2;
         this.scene = new THREE.Scene();
         this.mesh = null;
         this.mesh1 = null;
