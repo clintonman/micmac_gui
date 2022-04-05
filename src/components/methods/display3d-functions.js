@@ -106,7 +106,7 @@ export function exportMesh() {
 }
 
 export function loadCameraLights(camFontSize) {
-console.log("camfontsize " + camFontSize)
+// console.log("camfontsize " + camFontSize)
     //get file list in Ori-"orientation"
     //filter for filename "Orientation-" start
     //camera name between "Orientation-" and ".JPG.xml" ending
@@ -343,9 +343,9 @@ export function loadGCP(camFontSize) {
         // textMeshTarget.scale.x = this.sphereRadius * 0.1;
         // textMeshTarget.scale.y = this.sphereRadius * 0.1;
         // textMeshTarget.scale.z = this.sphereRadius * 0.1;
-        textMeshTarget.scale.x = camFontSize * 5;
-        textMeshTarget.scale.y = camFontSize * 5;
-        textMeshTarget.scale.z = camFontSize * 5;
+        textMeshTarget.scale.x = camFontSize * 1.5;
+        textMeshTarget.scale.y = camFontSize * 1.5;
+        textMeshTarget.scale.z = camFontSize * 1.5;
         textMeshTarget.name = "GCP_" + newgcp[i].name;
         this.scene.add(textMeshTarget);
 
@@ -431,11 +431,11 @@ export function loadPLY() {
         let numColor = 0;
 
         if (geometry.attributes.uv) {
-            console.log("uv count " + geometry.attributes.uv.count);
+            // console.log("uv count " + geometry.attributes.uv.count);
             numUV = geometry.attributes.uv.count;
         }
         if (geometry.attributes.color) {
-            console.log("color count " + geometry.attributes.color.count);
+            // console.log("color count " + geometry.attributes.color.count);
             numColor = geometry.attributes.color.count;
         }
 
@@ -612,44 +612,60 @@ export function loadPLY() {
         this.camera.position.set(this.sphereRadius, 0.0, this.sphereRadius);
         this.camera.updateProjectionMatrix();
 
-        var scalef = 1
+        // var scalef = 1
 
         //default first camera position is 0,0,0
 
         //mesh weighted center
 
-        let posArray = this.mesh.geometry.attributes.position.array;
         let x = 0,
             y = 0,
             z = 0;
-        for (var ind = 0; ind < this.mesh.geometry.attributes.position.count; ind++) {
+            
+        let posArray = this.mesh.geometry.attributes.position.array;
+        
+        var pcount3 = parseInt(this.mesh.geometry.attributes.position.count / 3);
+        for (var ind = 0; ind < pcount3; ind++) {
             x += posArray[ind * 3];
             y += posArray[ind * 3 + 1];
             z += posArray[ind * 3 + 2];
         }
-        x = x / this.mesh.geometry.attributes.position.count;
-        y = y / this.mesh.geometry.attributes.position.count;
-        z = z / this.mesh.geometry.attributes.position.count;
-
-        this.mesh.position.x = -x;
-        this.mesh.position.y = -y;
-        this.mesh.position.z = -z;
-
+        
+        x = x / pcount3;
+        y = y / pcount3;
+        z = z / pcount3;
+        
         this.meshPosition.x = -x;
         this.meshPosition.y = -y;
         this.meshPosition.z = -z;
+            
+        if(this.state.centermesh) {
+            this.mesh.position.x = -x;
+            this.mesh.position.y = -y;
+            this.mesh.position.z = -z;
 
-        this.mesh.scale.multiplyScalar(scalef);
+        } else {
+            this.mesh.position.x = 0;
+            this.mesh.position.y = 0;
+            this.mesh.position.z = 0;
+        }
+
         this.scene.add(this.mesh);
 
         var origin = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
         this.originmesh = new THREE.PlaneHelper(origin, 1, 0xffffff);
-        this.originmesh.position.x = -x;
-        this.originmesh.position.y = -y;
-        this.originmesh.position.z = -z;
+        if(this.state.centermesh) {
+            this.originmesh.position.x = -x;
+            this.originmesh.position.y = -y;
+            this.originmesh.position.z = -z;
+        } else {
+            this.originmesh.position.x = 0;
+            this.originmesh.position.y = 0;
+            this.originmesh.position.z = 0;
+        }
         this.scene.add(this.originmesh);
 
-        this.scene.remove(this.mesh1);
+        this.scene.remove(this.mesh1);//remove dummy cloud
 
         this.unloadCameraLights();
         if (this.state.showCameraLights) {
@@ -1050,71 +1066,11 @@ export function unloadGCP() {
 
 export function updateCameraLights(newImageSelection, camFontSize) {
 
-    if (this.cameralights.length === 0) {
-        return;
-    }
-    //remove all camlight meshes
-    //recreate camlight meshes
-    this.cameralights.forEach(elem => {
-        elem.mesh.geometry.dispose();
-        var geometry = new THREE.TextBufferGeometry(elem.name, {
-            font: this.font,
-            size: camFontSize,
-            height: camFontSize * 0.1,
-            curveSegments: 3,
-            bevelEnabled: false,
-            bevelThickness: 4,
-            bevelSize: 2,
-            bevelSegments: 5
-        });
-        elem.mesh.geometry = geometry;
-        elem.cone.scale.x = camFontSize * 5;
-        elem.cone.scale.y = camFontSize * 5;
-        elem.cone.scale.z = camFontSize * 5;
-    })
+    if (this.cameralights.length !== 0) {
 
-    if (!newImageSelection) return;
-
-    let numSelected = newImageSelection.reduce((acc, val) => {
-        if (val) {
-            return acc + 1;
-        } else {
-            return acc;
-        }
-    }, 0)
-    console.log("num active cameras: ", numSelected);
-    this.state.imageSelection.forEach((elem, index) => {
-        if (
-            (elem && !newImageSelection[index]) || (!elem && newImageSelection[index])
-        ) {
-            var camlight = this.cameralights.find((el) => {
-                return el.name === this.state.imageList[index].name
-            })
-
-            if (camlight) {
-                if (newImageSelection[index]) {
-                    console.log("add cam light: " + this.state.imageList[index].name)
-                    camlight.mesh.material.color = new THREE.Color(1, 0, 0);
-                    this.scene.add(camlight.cone);
-                } else {
-                    console.log("remove cam light: " + this.state.imageList[index].name)
-                    camlight.mesh.material.color = new THREE.Color(0, 1, 0);
-                    this.scene.remove(camlight.cone);
-                }
-            }
-        }
-    })
-
-    if(this.gcp.length > 0) {
-        console.log("do gcp here");
-        // var gcp = {
-        //     name: newgcp[i].name,
-        //     mesh: textMesh,
-        //     sphere: textMeshTarget
-        // };
-        
-        this.gcp.forEach(elem => {
-            console.log(elem.name);
+        //remove all camlight meshes
+        //recreate camlight meshes
+        this.cameralights.forEach(elem => {
             elem.mesh.geometry.dispose();
             var geometry = new THREE.TextBufferGeometry(elem.name, {
                 font: this.font,
@@ -1127,9 +1083,63 @@ export function updateCameraLights(newImageSelection, camFontSize) {
                 bevelSegments: 5
             });
             elem.mesh.geometry = geometry;
-            elem.sphere.scale.x = camFontSize * 5;
-            elem.sphere.scale.y = camFontSize * 5;
-            elem.sphere.scale.z = camFontSize * 5;
+            elem.cone.scale.x = camFontSize * 5;
+            elem.cone.scale.y = camFontSize * 5;
+            elem.cone.scale.z = camFontSize * 5;
+        })
+
+        if (!newImageSelection) return;
+
+        let numSelected = newImageSelection.reduce((acc, val) => {
+            if (val) {
+                return acc + 1;
+            } else {
+                return acc;
+            }
+        }, 0)
+        // console.log("num active cameras: ", numSelected);
+        this.state.imageSelection.forEach((elem, index) => {
+            if (
+                (elem && !newImageSelection[index]) || (!elem && newImageSelection[index])
+            ) {
+                var camlight = this.cameralights.find((el) => {
+                    return el.name === this.state.imageList[index].name
+                })
+
+                if (camlight) {
+                    if (newImageSelection[index]) {
+                        console.log("add cam light: " + this.state.imageList[index].name)
+                        camlight.mesh.material.color = new THREE.Color(1, 0, 0);
+                        this.scene.add(camlight.cone);
+                    } else {
+                        console.log("remove cam light: " + this.state.imageList[index].name)
+                        camlight.mesh.material.color = new THREE.Color(0, 1, 0);
+                        this.scene.remove(camlight.cone);
+                    }
+                }
+            }
+        })
+    }
+
+    if(this.gcp.length > 0) {
+        
+        this.gcp.forEach(elem => {
+
+            elem.mesh.geometry.dispose();
+            var geometry = new THREE.TextBufferGeometry(elem.name, {
+                font: this.font,
+                size: camFontSize,
+                height: camFontSize * 0.1,
+                curveSegments: 3,
+                bevelEnabled: false,
+                bevelThickness: 4,
+                bevelSize: 2,
+                bevelSegments: 5
+            });
+            elem.mesh.geometry = geometry;
+            elem.sphere.scale.x = camFontSize * 1.5;
+            elem.sphere.scale.y = camFontSize * 1.5;
+            elem.sphere.scale.z = camFontSize * 1.5;
             // this.sphereRadius * 0.1
         })
     }
@@ -1160,20 +1170,52 @@ export function updatevalues(event) {
                 this.mesh.position.y = 0;
                 this.mesh.position.z = 0;
             }
+
+            if(newState.centermesh) {
+                this.originmesh.position.x = this.meshPosition.x;
+                this.originmesh.position.y = this.meshPosition.y;
+                this.originmesh.position.z = this.meshPosition.z;
+            } else {
+                this.originmesh.position.x = 0;
+                this.originmesh.position.y = 0;
+                this.originmesh.position.z = 0;
+            }
+            
+        }
+        if(this.gcp.length > 0) {
+            this.gcp.forEach(elem => {
+                if(newState.centermesh) {
+                    elem.mesh.position.x += this.meshPosition.x;
+                    elem.mesh.position.y += this.meshPosition.y;
+                    elem.mesh.position.z += this.meshPosition.z;
+                    elem.sphere.position.x += this.meshPosition.x;
+                    elem.sphere.position.y += this.meshPosition.y;
+                    elem.sphere.position.z += this.meshPosition.z;
+                } else {
+                    elem.mesh.position.x -= this.meshPosition.x;
+                    elem.mesh.position.y -= this.meshPosition.y;
+                    elem.mesh.position.z -= this.meshPosition.z;
+                    elem.sphere.position.x -= this.meshPosition.x;
+                    elem.sphere.position.y -= this.meshPosition.y;
+                    elem.sphere.position.z -= this.meshPosition.z;
+                }
+            
+            });
+
         }
         this.unloadCameraLights();
         newState.showCameraLights = false;
     }
     if (changedItem === "groundDefined") {
         newState.groundDefined = !newState.groundDefined;
-        if (newState.groundDefined) {
-            if (this.mesh) {
-                this.mesh.position.x = 0;
-                this.mesh.position.y = 0;
-                this.mesh.position.z = 0;
-                newState.centermesh = false;
-            }
-        }
+        // if (newState.groundDefined) {
+        //     if (this.mesh) {
+        //         this.mesh.position.x = 0;
+        //         this.mesh.position.y = 0;
+        //         this.mesh.position.z = 0;
+        //         newState.centermesh = false;
+        //     }
+        // }
         this.unloadCameraLights();
         newState.showCameraLights = false;
         this.orbitControlsStart(newState.groundDefined);
@@ -1199,9 +1241,9 @@ export function updatevalues(event) {
 
     if (changedItem === "camFontSize") {
         newState.camFontSize = event.target.value;
-        if (this.state.showCameraLights) {
+        // if (this.state.showCameraLights) {
             this.updateCameraLights(this.state.imageSelection, newState.camFontSize)
-        }
+        // }
     }
     if (changedItem === "wireframe") {
         newState.wireFrame = !newState.wireFrame;

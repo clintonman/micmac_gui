@@ -130,7 +130,7 @@ class Display3D extends Component {
         this.x_axis_vis = null;
         this.y_axis_vis = null;
         this.z_axis_vis = null;
-        this.meshPosition = new THREE.Vector3( 0, 0, 0 );
+        this.meshPosition = new THREE.Vector3( 0, 0, 0 );// geometric center of the point cloud or mesh
 
         // directional lights along each axis
         let colorR = 0xffdddd,

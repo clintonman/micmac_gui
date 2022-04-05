@@ -19,12 +19,12 @@ display3dhelp.Display3D =
     <p>Display Vertex count - number of points shown in the display. This value may be less than the actual number of points in the cloud.</p>
     <p>Face count - number of triangles in the mesh</p>
     <p><strong>Ground defined</strong> - changes the style of rotation so that the view is always above ground and Z always points up and panning is in the XY directions.</p>
-    <p><strong>Show GCP</strong> - will show the ground control points</p>
+    <p><strong>Show GCP</strong> - will show the ground control points. Opens a file dialog to select the xml GCP file. "Name size" controls the size of the indicators.</p>
     <p><strong>Center mesh</strong> - center the mesh in the view. If cameras are included in the Apericloud run, their positions will be used in the calculation for the mesh center. When unchecked it will use the coordinate system of the point cloud</p>
     <p><strong>Point size</strong> - increase or decrease the size of the points displayed</p>
     <p><strong>Orientation</strong> - source for the camera position and rotation</p>
     <p><strong>Show cameras</strong> - display cameras as wirefame pyramid shapes with text labels</p>
-    <p><strong>Name size</strong> - size of the camera labels</p>
+    <p><strong>Name size</strong> - size of the camera and GCP labels and geometries</p>
     <p><strong>View To Camera</strong> - select 1 image and press to see the 3d view from that cameras perspective. Press the escape key to exit the view.</p>
     <p><strong>Wireframe</strong> - display a mesh as a colored wireframe</p>
     <p><strong>Double sided</strong> - display the mesh triangles from both front and back sides.</p>
