@@ -194,11 +194,13 @@ class Apericloud extends Component {
                         {this.state.apericloudran ? <Checkmark className="button-ran2"></Checkmark> : null}3D Preview</button>
                 </div>
 
-                    <input type="text"
-                        className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
+                    <textarea
+                        className={`command ${this.state.hidecommandinput ? "mincommand" : "height2"}`}
                         id="saisiemasqplyCommand"
                         value={this.state.saisiemasqplyCommand}
-                        onChange={this.updatecommand}/>
+                        onChange={this.updatecommand}
+                        rows="2"
+                        wrap="soft"></textarea>
 
                 <button className="contexthelp" data-help="SaisieMasqRun" data-position="right" 
                             onContextMenu={this.props.helpcontext}

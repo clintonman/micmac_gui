@@ -39,7 +39,7 @@ gcpbasculehelp.GCPBasculeGeneral =
         <li>
             <ul>
                 <li><strong>choose</strong> - select a measurement point</li>
-                <li><strong>Set Regex</strong> - set the image(s) to be measured, only 1 image at a time for Windows machines</li>
+                <li><strong>Set Regex</strong> - set the image(s) to be measured</li>
                 <li><strong>Init</strong> - press to locate the measurement point in the selected image(s)</li>
             </ul>
         </li>

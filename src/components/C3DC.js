@@ -378,12 +378,15 @@ class C3DC extends Component {
                         checked={this.state.localRepair}
                         onChange={this.updatecommand}/>
                 </div>
-                <input
+                <textarea
                     id="pims2mntCommand"
-                    className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
+                    // className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
+                    className={`command ${this.state.hidecommandinput ? "mincommand" : "height2"}`}
                     type="text" 
                     value={this.state.pims2mntCommand}
-                    onChange={this.updatecommand}/>
+                    onChange={this.updatecommand}
+                    rows="2"
+                    wrap="soft"></textarea>
                 <div className="C3DC__two-buttons" style={{marginBottom: "2em"}}>
                     <button onClick={this.pims2mnt}
                         title="PIMs2Mnt merges individual depth maps in a global digital surface (or elevation) model."
@@ -392,11 +395,14 @@ class C3DC extends Component {
                     <button onClick={this.saveDepthmap} title="save depth map">Save depth map</button>
                 </div>
 
-                    <input id="tawnycommand" 
+                    <textarea id="tawnycommand" 
                         type="text"
-                        className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
+                        // className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
+                        className={`command ${this.state.hidecommandinput ? "mincommand" : "height2"}`}
                         value={this.state.tawnycommand} 
-                        onChange={this.updatecommand}/>
+                        onChange={this.updatecommand}
+                        rows="2"
+                        wrap="soft"></textarea>
                     <div className="C3DC__two-buttons">
                         <button
                             onClick={this.runTawny}

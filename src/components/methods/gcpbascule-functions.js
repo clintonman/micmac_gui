@@ -398,11 +398,11 @@ export function runAppuisInit(index) {
         return;
     }
     // multiple images does not work well - bug in appuisinit(windows?)
-    if(count > 1) {
-        if(!window.confirm("More than 1 image selected. Continue anyway?")) {
-            return;
-        }
-    }
+    // if(count > 1) {
+    //     if(!window.confirm("More than 1 image selected. Continue anyway?")) {
+    //         return;
+    //     }
+    // }
     let commandarraytext;
     commandarraytext = [
         "SaisieAppuisInitQT",
