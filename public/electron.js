@@ -44,6 +44,15 @@ ipcMain.on('image-dialog', (event, arg) => {
   });
   event.returnValue = res;
 });
+ipcMain.on('video-dialog', (event, arg) => {
+  let res = dialog.showOpenDialogSync({
+    properties: ['openFile'],
+    filters: [
+        {name: 'All Files', extensions: ['*']}
+    ]
+  });
+  event.returnValue = res;
+});
 
 ipcMain.on('imagetif-dialog', (event, tempDir) => {
   let res = dialog.showOpenDialogSync({

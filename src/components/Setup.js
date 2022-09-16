@@ -27,7 +27,7 @@ class Setup extends Component {
             beep: props.beep,
             hidecommandinput: props.hidecommandinput,
             max3dpoints: props.max3dpoints,
-            exifisset: props.exifisset,
+            exifisset: props.exifisset
         }
 
         // imports Setup functions
@@ -107,6 +107,15 @@ class Setup extends Component {
                                 disabled={!this.props.setupIsValid}
                             >
                                 Copy Images
+                            </button>
+                        </div>
+                        <div>
+                            <label htmlFor="cam">FPS</label>
+                            <input type="number" name="fps" id="fps" max="4" min="0.01" step="0.01" value={this.props.fps} onChange={this.props.updateFPS}/>
+                            <button
+                                onClick={() => this.props.startVideoDialog(this.props.fps)}
+                            >
+                                Load Video
                             </button>
                         </div>
                     </div>

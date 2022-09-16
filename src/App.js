@@ -103,7 +103,8 @@ class App extends Component {
       regexError: false,
       exifisset: false,
       validSetup: false,
-      in_options: [""]
+      in_options: [""],
+      fps: 1
     }
 
     if(fs.existsSync(this.state.mm3dPath) && fs.existsSync(this.state.tempDir)) {
@@ -130,6 +131,7 @@ class App extends Component {
     this.timeoutID = null;
     this.startClearingFiles = false;
     this.startLoadingFiles = false;
+    this.startLoadingVideo = false;
 
     //only need globalEnv if windows, linux works fully without it, if needed think linux list is ':' delimited path
     if(process.platform === 'win32') {
@@ -162,6 +164,8 @@ class App extends Component {
     this.imageLoad = ImageFile.imageLoad.bind(this);
     this.imageDialog = ImageFile.imageDialog.bind(this);
     this.imageDrop = ImageFile.imageDrop.bind(this);
+    this.convertVideo = ImageFile.convertVideo.bind(this);
+    this.videoDialog = ImageFile.videoDialog.bind(this, this.state.fps);
   }
 
   saveBatch = (bat) => { this.batch = bat; }
@@ -216,6 +220,12 @@ class App extends Component {
       this.startLoadingFiles = false;
       this.imageLoad(this.res);
     }
+    if(this.startLoadingVideo) {
+      this.startLoadingVideo = false;
+      let res2 = this.convertVideo(this.res);
+      this.startLoadingFiles = false;
+      this.imageLoad(res2);
+    }
   }
 
   clearAllFiles = clearAllFiles.bind(this);
@@ -250,6 +260,13 @@ class App extends Component {
   setStatus = setStatus.bind(this);
 
   loadRunState = loadRunState.bind(this);
+
+  updateFPS = (event) => {
+    this.setState({
+      ...this.state,
+      fps: event.target.value
+    })
+  }
 
   render() {
     const commonProps = {
@@ -330,7 +347,10 @@ class App extends Component {
                   beep={this.state.beep}
                   max3dpoints={this.max3dpoints}
                   setMaxPoints={this.setMaxPoints}
-                  setupIsValid={this.state.validSetup}>
+                  setupIsValid={this.state.validSetup}
+                  startVideoDialog={this.videoDialog}
+                  fps={this.state.fps}
+                  updateFPS={this.updateFPS}>
                 </Setup>
               )}/>
 
