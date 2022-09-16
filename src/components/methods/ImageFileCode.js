@@ -73,7 +73,12 @@ export const imageDrop = function(rawimagepaths) {
     if(!fs.existsSync(extractedFolder)) {
       fs.mkdirSync(extractedFolder);
     } else {
-      //TODO clear the folder contents
+      //clear the folder contents
+      let directoryItems1 = fs.readdirSync(extractedFolder);
+      directoryItems1.forEach((elem) => {
+        let currentFile = path.join(extractedFolder, elem);
+        fs.unlinkSync(currentFile);
+      });
     }
 
     // const bat = spawn(this.props.mm3dPath, commandarraytext, { cwd:this.props.tempDir });
