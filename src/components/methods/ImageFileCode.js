@@ -7,6 +7,8 @@ const shell = electron.shell;
 
 const xml2js = window.require('xml2js');
 
+const spawnSync = window.require('child_process').spawnSync;
+
 var ipcRenderer = electron.ipcRenderer;
 
 export const imageDrop = function(rawimagepaths) {
@@ -29,9 +31,69 @@ export const imageDrop = function(rawimagepaths) {
       this.setState({...this.state, busy: true, procstatus:"loading images"});
     }
   }
+  export const videoDialog = function (fps) {
+    this.res = ipcRenderer.sendSync('video-dialog', null);
+
+    if(this.res) {
+      this.startLoadingVideo = true;
+      this.setState({...this.state, busy: true, procstatus:"loading video images"});
+    }
+  }
+  export const convertVideo = function(res) {
+    if (!res) {
+      return;
+    }
+
+    var thecommand = this.state.ffmpegPath;
+    var commandarraytext = [];
+
+    commandarraytext.push("-i");
+    commandarraytext.push(res[0]);
+    commandarraytext.push("-vf");
+    commandarraytext.push("fps=" + this.state.fps);
+
+    var basename = path.parse(res[0]).name + "%3d.jpg";
+
+    var fullpath = path.join(path.dirname(res[0]) ,"extracted", basename)
+    commandarraytext.push(fullpath);
+
+    //create extracted folder
+    const extractedFolder = path.join(path.dirname(res[0]), "extracted");
+    if(!fs.existsSync(extractedFolder)) {
+      fs.mkdirSync(extractedFolder);
+    } else {
+      //clear the folder contents
+      let directoryItems1 = fs.readdirSync(extractedFolder);
+      directoryItems1.forEach((elem) => {
+        let currentFile = path.join(extractedFolder, elem);
+        fs.unlinkSync(currentFile);
+      });
+    }
+
+    const bat = spawnSync(thecommand, commandarraytext);
+
+    if(bat.status === null) {
+      let outState = "ERROR: " + bat.error.message;
+      this.setState({...this.state, procstatus: outState, appDisabled: false, busy: false})
+      return; 
+    }
+    if(bat.status !== 0) {
+      let outState = "ERROR";
+      this.setState({...this.state, procstatus: outState, appDisabled: false, busy: false})
+      return; 
+    }
+    
+    //create array of image paths then call imageLoad on return
+    //get folder contents list
+    let directoryItems = fs.readdirSync(extractedFolder);
+    let res2 = directoryItems.map((item) => {
+      return path.join(extractedFolder, item);
+    });
+
+    return res2;
+  }
 
 export const imageLoad = function(res) {
-    // console.log("imageload")
     if (!res) {
       return;
     }

@@ -131,11 +131,6 @@ class Apericloud extends Component {
  
                 <div className="label-input_group">
                     <label htmlFor="orientationin">Orientation In</label>
-                    {/* <input 
-                        id="orientationin" 
-                        type="text" 
-                        value={this.state.orientation}
-                        onChange={this.updatecommand} /> */}
                         <select 
                             name="orientationin" id="orientationin" 
                             title="in orientation name"

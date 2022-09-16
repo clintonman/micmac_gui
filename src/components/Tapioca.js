@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Checkmark from './Checkmark';
-// import { displayProgress, displayErrors, endProgress } from '../utility/batch';
 import { prepSaisieMasq } from '../utility/mmutil';
 import TiePoints from './TiePoints';
 import * as tapiocaF from './methods/tapioca-functions';
@@ -10,10 +9,6 @@ const electron = window.require('electron');
 const fs = window.require('fs');
 const path = window.require('path');
 var xml2js = require('xml2js');
-// const spawn = window.require('child_process').spawn;
-// const rimraf = window.require('rimraf');
-
-// const shell = electron.shell;
 
 var ipcRenderer = electron.ipcRenderer;
 
@@ -77,15 +72,12 @@ class Tapioca extends Component {
             help: null,
             tiepointSkip: 10,
             schnapsran: this.props.schnapsran,
-            // tiepointportrait: false,
             tiepointportrait: 0,
             tiepointpointportrait: false,
             NbWin: 1000,
             detect: "Sift",
             ratio: 0.6,
-            // saisiemasqimgCommand: 'mm3d '  + (props.useSaisieMasqQT ? "SaisieMasqQT " : "SaisieMasq ") + props.imageRegex,
             saisiemasqimgCommand: 'mm3d '  + (props.useSaisieMasqQT ? 'SaisieMasqQT ' : 'SaisieMasq ') + '"' + props.imageRegex + '"',
-            // homolfiltermasqCommand: 'mm3d HomolFilterMasq ' + props.imageRegex + " ANM=1 ",
             homolfiltermasqCommand: 'mm3d HomolFilterMasq ' + props.imageRegex,
             schnapsCommand: 'mm3d Schnaps ' + props.imageRegex,
             previouspattern: '',
@@ -100,13 +92,13 @@ class Tapioca extends Component {
 
         //if TiePointslist.txt exists read TiePoints-S2D.xml to get point names for tieimage0 and 1
         if(props.imageList.length > 0) {
-            // console.log(props.imageList)
+
             let tpl = path.join(props.tempDir, "TiePointsList.txt");
-            // let stats = fs.lstatSync(tpl);
+
             if(fs.existsSync(tpl)) {
                 //read xml points
                 let tp2d = path.join(props.tempDir, "TiePoints-S2D.xml");
-                // stats = fs.lstatSync(tp2d);
+
                 if(fs.existsSync(tp2d)) {
                     var parser = new xml2js.Parser();
                     let data = fs.readFileSync(tp2d, {encoding: 'utf8', flag: 'r'});
@@ -116,16 +108,14 @@ class Tapioca extends Component {
                             let image1data = result.SetOfMesureAppuisFlottants.MesureAppuiFlottant1Im[1];
                             let image0 = image0data.NameIm[0];
                             let image1 = image1data.NameIm[0];
-                            // console.log(image0)
-                            // console.log(image1)
+
                             let image0index = props.imageList.findIndex(val => {
                                 return (val.name === image0);
                             });
                             let image1index = props.imageList.findIndex(val => {
                                 return (val.name === image1);
                             });
-                            // console.log(image0index)
-                            // console.log(image1index)
+
                             this.state.tieimage0 = image0index;
                             this.state.tieimage1 = image1index;
                             this.state.saisieappuisinitCommand = `mm3d SaisieAppuisInitQT "${image0}" NONE TiePointsList.txt TiePoints.xml`;
@@ -198,9 +188,7 @@ class Tapioca extends Component {
     }
 
     setOrientation = (event) => {
-        // this.setState({tiepointportrait: !this.state.tiepointportrait})
         this.setState({tiepointportrait: event.target.value})
-
     }
 
     selectGlobalMask = () => {
@@ -216,8 +204,6 @@ class Tapioca extends Component {
       }
 
     componentWillReceiveProps(nextProps) {
-        // console.log("nextProps", nextProps);
-
         const newState = {
             ...this.state,
             ...nextProps,
@@ -228,24 +214,11 @@ class Tapioca extends Component {
         if(!this.tapiocaOverride) {
             this.buildcommand(newState);
             this.validatecommand(newState);
-            // newState.saisiemasqimgCommand ='mm3d '  + (newState.useSaisieMasqQT ? "SaisieMasqQT " : "SaisieMasq ") + nextProps.imageRegex;
-            // newState.homolfiltermasqCommand = 'mm3d HomolFilterMasq ' + nextProps.imageRegex + " ANM=1 " + (newState.globalmask ? 'GlobalMasq="' + newState.globalmask + '"' : "");
-            
         }
+
         if(nextProps.imageRegex !== this.props.imageRegex) {
-            // newState.homolfiltermasqCommand = 'mm3d HomolFilterMasq ' + nextProps.imageRegex + (newState.globalmask ? 'GlobalMasq="' + newState.globalmask + '"' : "");
             this.buildhomolfiltercommand(newState);
             this.homolfiltermasqOverride = false;
-
-            // let SH = ""; //suffix homol
-            // let testSH = nextProps.mm3dRunList.find(val => {
-            //     return val.sh && (val.name === "HomolFilterMasq");
-            // });
-
-            // if(testSH) {
-            //     SH = testSH.sh;
-            // }
-            // newState.schnapsCommand = 'mm3d Schnaps ' + nextProps.imageRegex + (SH === "MasqFiltered" ? " HomolIn=MasqFiltered" : "") + (newState.NbWin !== 1000 ? " NbWin=" + newState.NbWin : "");
             this.buildschnapscommand(newState);
             this.schnapsOverride = false;
         }
@@ -472,16 +445,6 @@ class Tapioca extends Component {
                             >Clear previous</button>
                     </div>
 
-                    {/* <input type="text"
-                        className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
-                        id="saisiemasqimgCommand"
-                        value={this.state.saisiemasqimgCommand}
-                        onChange={this.updateValue}
-                        readOnly/>
-
-                    <button onClick={this.openSaisi} title="create a mask image for filtering tie points"
-                        className="contexthelp griditemleft" data-help="SaisieMasqRun" data-position="right" 
-                        onContextMenu={this.props.helpcontext}>Mask an image</button> */}
                     <p 
                         title="create a mask image for filtering tie points"
                         style={{marginBottom:"1.5em", fontSize:"1.2em"}}
@@ -544,7 +507,7 @@ class Tapioca extends Component {
                         rows="4"
                         wrap="soft"></textarea>
 
-<div className="Tapioca__two-buttons noborder">
+                <div className="Tapioca__two-buttons noborder">
                     <button className="contexthelp" data-help="Schnaps" data-position="right" 
                             onContextMenu={this.props.helpcontext}
                             onClick={this.runSchnaps}

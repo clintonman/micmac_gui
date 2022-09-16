@@ -5,7 +5,6 @@ import './GCPBascule.css';
 
 const GCPinput = (props) => {
     let values = props.gcp.map((cp, index) => {
-        // console.log(cp)
         return (
             <li key={index}>
                 <label>#
@@ -305,7 +304,6 @@ class GCPBascule extends Component {
                         title="for loading preprocessed 2D measurement data">
                             Import 2D Measurements File
                     </button>
-                    {/* <h3 style={{width:"100%", borderTop:"1px solid yellow", margin:"10px", paddingTop:"5px", textAlign:"center"}}></h3> */}
                     <div className="endsection">
                         <h3>Define Initial 2D Image Points</h3>
                         <SaisieAppuisInit

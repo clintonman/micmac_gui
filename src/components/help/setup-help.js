@@ -100,6 +100,21 @@ setuphelp.loadimages = <div>
         Micmac requires an exif header, even if the values have no real meaning. </p>
         <p>It is possible to get a succesful solve with incorrect focal length and 35mm equiv values.</p>
 </div>
+setuphelp.loadvideo= <div>
+    <h3>Load Video Frames</h3>
+    <p>will extract jpeg images from a video file using the ffmpeg tool, <a href="https://ffmpeg.org/" target="_blank" rel="noopener noreferrer">https://ffmpeg.org/</a></p>
+    <p>Ffmpeg must be installed to extract video frames. Use the <strong>Ffmpeg Path</strong> button to set the path to the ffmpeg executable file before attempting to load a video file.</p>
+    <p><strong>Frames / Second</strong> - number indicates how many images will be extracted for each second of video. <br/>
+    A 10 sec video with 1 frame/sec will give 10 images.<br/>
+    A setting of 0.5 would give 5 images.<br/>
+    A setting of 2 would give 20 images.</p>
+    <p>The conversion process takes time and does not provide any feedback until complete.</p>
+    <p>After extraction is complete run <strong>SetExif</strong> in the "Set Image Data" section</p>
+    <p>The extraction process will create a subfolder named "extracted" in the same folder as the video file. 
+        This contains the image files that are copied into the MicMac GUI working folder.</p>
+    <p>Any existing files inside the extracted folder will be deleted before creating a fresh set of images.</p>
+
+</div>
 setuphelp.micmacFiles = <div>
     <h3>Temp files created by micmac</h3>
     <p>Ori - orientation</p>

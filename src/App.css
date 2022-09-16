@@ -104,11 +104,6 @@ label input, label select {
   width: 100%;
 }
   
-  /* .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-    height: 80px;
-  }
-   */
   .App-header {
     background-color: var(--micmac-purple);
     padding: 0 2em;
@@ -251,15 +246,12 @@ label input, label select {
   pointer-events: none;
 }
 
-/* .Controls input[type="text"] {
-  height: 1.5em;
-} */
 .Setup .Controls {
   align-items: center;
 }
 
 .Setup .Controls input[type="number"] {
-  width: 4rem;
+  width: 4em;
 }
 
 .Setup__two-buttons {
@@ -271,6 +263,17 @@ label input, label select {
 }
 .Setup__two-buttons button {
   width: 12em;
+}
+
+.Setup__video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1em;
+}
+.Setup__video input {
+  margin-left: 0.5em;
+  margin-right: 1.5em;
 }
 
 .Setup .Controls .ImageDataGrid {
@@ -830,7 +833,6 @@ label input, label select {
 }
 p.clipboardcopy {
   display:block;
-  /* border-bottom: 1px solid gray; */
   font-size: 0.9em;
   margin-top: 1em;
   margin-bottom: 0.5em;

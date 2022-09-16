@@ -477,7 +477,7 @@ export function processImageMasks() {
         }
 
         if(this.state.globalmask !== '') {
-            commandarraytext.push('GlobalMasq="' + this.state.globalmask + '"')
+            commandarraytext.push('GlobalMasq=' + this.state.globalmask)
         }
     } else {
         commandarraytext = this.state.homolfiltermasqCommand.split(" ");
@@ -489,6 +489,7 @@ export function processImageMasks() {
     this.props.setStatus(this.batchState);
 
     this.props.disableApp();
+    console.log(commandarraytext)
 
     const bat = spawn(this.props.mm3dPath, commandarraytext, { cwd:this.props.tempDir });
     this.spawnedBatch = bat;

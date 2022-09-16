@@ -10,7 +10,6 @@ const path = window.require('path');
 class Tapas extends Component {
     constructor(props) {
         super(props);
-        // console.log("tapas constructor");
         this.lineheight = React.createRef();
         //SH - suffix homol
         let SH = "";
@@ -231,7 +230,6 @@ class Tapas extends Component {
             elapsedTime: "00:00"
         }
         
-        // this.state.saisiemasqplyCommand = 'mm3d ' + (props.useSaisieMasqQT ? "SaisieMasqQT" : "SaisieMasq") + " AperiCloud_" + this.state.out_orientation_final + ".ply";
         this.state.saisiemasqplyCommand = 'mm3d ' + (props.useSaisieMasqQT ? "SaisieMasqQT" : "SaisieMasq") + " AperiCloud_" + this.state.in_orientation_apericloud + ".ply";
         this.state.apericloudCommand = 'mm3d AperiCloud ' + props.imageRegex + " " + this.state.in_orientation_apericloud + (!this.state.withCam ? " WithCam=0" : "");
         this.state.camparicommand = 'mm3d Campari '  + props.imageRegex + " " + this.state.in_orientation_campari+ " " + this.state.out_orientation_campari;
@@ -286,14 +284,12 @@ class Tapas extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // console.log(nextProps)
         const newState = {
             ...this.state,
             ...nextProps,
             Size: nextProps.imageWidth * this.state.sizescale
         }
         this.fileregex = nextProps.imageRegex;
-        // if(!this.commandOverride) {
         if(!this.commandOverride && !nextProps.appDisabled) {
             this.buildcommand(newState);
         }
@@ -302,10 +298,7 @@ class Tapas extends Component {
             this.buildapericloudcommand(newState);
             this.buildsaisiemasqcommand(newState);
         }
-        // if(!newState.withCam)
-        //     newState.apericloudCommand = 'mm3d AperiCloud ' + nextProps.imageRegex + " " + newState.out_orientation_final + " WithCam=0";
-        // else
-        //     newState.apericloudCommand = 'mm3d AperiCloud ' + nextProps.imageRegex + " " + newState.out_orientation_final;
+
         this.setState(newState);
     }
 
@@ -386,14 +379,6 @@ class Tapas extends Component {
                         checked={this.state.withCalib}
                         onChange={this.updatecommand}
                          />
-
-                {/* <label htmlFor="useOldTapas">Use Old Tapas</label>
-                <input 
-                    id="useOldTapas" 
-                    type="checkbox" 
-                    checked={this.state.useOldTapas} 
-                    onChange={this.updatecommand}
-                    title="use old version of Tapas"/> */}
 
                 <label htmlFor="exptxt">Text tie points</label>
                 <input 

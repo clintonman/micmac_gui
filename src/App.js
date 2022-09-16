@@ -31,7 +31,7 @@ import {
   setStatus, tempFolderDialog, updateMM3dRunList,
   updateOriCalOptions,
   updateResidualError,
-  maskImage
+  maskImage, ffmpegDialog
 } from './app-functions';
 
 // run in 2 steps
@@ -55,6 +55,7 @@ var ipcRenderer = electron.ipcRenderer;
 let mm3dPath = ipcRenderer.sendSync('get-setting', 'mm3dPath');
 let tempDir = ipcRenderer.sendSync('get-setting', 'tempPath');
 let max3dpoints = ipcRenderer.sendSync('get-setting', 'max3dpoints');
+let ffmpegPath = ipcRenderer.sendSync('get-setting', 'ffmpegPath');
 
 const process = window.require('process');
 const globalEnv = process.env;
@@ -103,7 +104,9 @@ class App extends Component {
       regexError: false,
       exifisset: false,
       validSetup: false,
-      in_options: [""]
+      in_options: [""],
+      fps: 1,
+      ffmpegPath: ffmpegPath
     }
 
     if(fs.existsSync(this.state.mm3dPath) && fs.existsSync(this.state.tempDir)) {
@@ -130,6 +133,7 @@ class App extends Component {
     this.timeoutID = null;
     this.startClearingFiles = false;
     this.startLoadingFiles = false;
+    this.startLoadingVideo = false;
 
     //only need globalEnv if windows, linux works fully without it, if needed think linux list is ':' delimited path
     if(process.platform === 'win32') {
@@ -162,6 +166,8 @@ class App extends Component {
     this.imageLoad = ImageFile.imageLoad.bind(this);
     this.imageDialog = ImageFile.imageDialog.bind(this);
     this.imageDrop = ImageFile.imageDrop.bind(this);
+    this.convertVideo = ImageFile.convertVideo.bind(this);
+    this.videoDialog = ImageFile.videoDialog.bind(this, this.state.fps);
   }
 
   saveBatch = (bat) => { this.batch = bat; }
@@ -206,15 +212,26 @@ class App extends Component {
   mm3dFileDialog = mm3dFileDialog.bind(this);
 
   tempFolderDialog = tempFolderDialog.bind(this);
+  ffmpegDialog = ffmpegDialog.bind(this);
 
   componentDidUpdate(){
     if(this.startClearingFiles) {
       this.startClearingFiles = false;
       this.clearAllFiles2();
     }
+
     if(this.startLoadingFiles) {
       this.startLoadingFiles = false;
       this.imageLoad(this.res);
+    }
+    
+    if(this.startLoadingVideo) {
+      this.startLoadingVideo = false;
+      let res2 = this.convertVideo(this.res);
+      if(res2) {
+        this.startLoadingFiles = false;
+        this.imageLoad(res2);
+      }
     }
   }
 
@@ -250,6 +267,17 @@ class App extends Component {
   setStatus = setStatus.bind(this);
 
   loadRunState = loadRunState.bind(this);
+
+  updateFPS = (event) => {
+    if(event.target.value <= 0) {
+      return;
+    }
+    
+    this.setState({
+      ...this.state,
+      fps: event.target.value
+    })
+  }
 
   render() {
     const commonProps = {
@@ -330,7 +358,12 @@ class App extends Component {
                   beep={this.state.beep}
                   max3dpoints={this.max3dpoints}
                   setMaxPoints={this.setMaxPoints}
-                  setupIsValid={this.state.validSetup}>
+                  setupIsValid={this.state.validSetup}
+                  startVideoDialog={this.videoDialog}
+                  fps={this.state.fps}
+                  updateFPS={this.updateFPS}
+                  selectFfmpegPath={this.ffmpegDialog}
+                  ffmpegPath={this.state.ffmpegPath}>
                 </Setup>
               )}/>
 
