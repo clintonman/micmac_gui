@@ -130,10 +130,8 @@ class C3DC extends Component {
     buildReplocCommand = (newState) => {
         let buildcommand;
         buildcommand = 'mm3d RepLocBascule "' + newState.imageRegex +  '" ';
-        // buildcommand += newState.orientation + " HOR LocalRepair.xml PostPlan=_MasqPlane";
         buildcommand += newState.orientation + " " + newState.bascline + " LocalRepair.xml";
         buildcommand += (newState.exptxt ? " ExpTxt=1" : "");
-        // buildcommand += " PostPlan=_MasqPlane";
         buildcommand += " PostPlan=_MasqRep";
         if(newState.orthocyl) {
             buildcommand += " OrthoCyl=1"
@@ -155,7 +153,6 @@ class C3DC extends Component {
         }
         newState.apero2meshlabCommand = 'mm3d Apero2Meshlab "' + nextProps.imageRegex + '" ' + newState.orientation + ' UnDist=0';
         this.apero2meshlabOverride = false;
-        // newState.saisiemasqimgCommand = 'mm3d ' + (nextProps.useSaisieMasqQT ? "SaisieMasqQT " : "SaisieMasq ") + nextProps.imageRegex + " Post=_MasqPlane"
         let commandarray = prepSaisieMasq("C3DC", newState, nextProps, false);
         newState.saisiemasqimgCommand = "mm3d " + commandarray.join(" ");
         this.setState(newState);
@@ -172,7 +169,6 @@ class C3DC extends Component {
         if(lh === "normal") {
             lh = 1.2;
         }
-        // console.log(lh)
         this.setState({...this.state, lineheight: lh});
     }
 
@@ -223,9 +219,6 @@ class C3DC extends Component {
 
                     <div className="label-input_group">
                         <label htmlFor="orientation">Orientation</label>
-                        {/* <input id="orientation" type="text" 
-                            value={this.state.orientation}
-                            onChange={this.updatecommand}/> */}
                         <select 
                             name="orientation" id="orientation" 
                             title="in orientation name"
@@ -313,15 +306,6 @@ class C3DC extends Component {
                     </div>
 
                 <h3>Orthophoto</h3>
-                {/* <input type="text"
-                    className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
-                    id="saisiemasqimgCommand"
-                    value={this.state.saisiemasqimgCommand}
-                    onChange={this.updatecommand}/>
-
-                <button onClick={this.openSaisi} title="mask an image for face direction of orthophoto"
-                    className="contexthelp" data-help="SaisieMasqRun" data-position="left" 
-                    onContextMenu={this.props.helpcontext}>Mask an image</button> */}
                 <p 
                     title="mask an image for face direction of orthophoto"
                     style={{marginBottom:"1.5em", fontSize:"1.2em"}}
@@ -380,7 +364,6 @@ class C3DC extends Component {
                 </div>
                 <textarea
                     id="pims2mntCommand"
-                    // className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
                     className={`command ${this.state.hidecommandinput ? "mincommand" : "height2"}`}
                     type="text" 
                     value={this.state.pims2mntCommand}
@@ -397,7 +380,6 @@ class C3DC extends Component {
 
                     <textarea id="tawnycommand" 
                         type="text"
-                        // className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
                         className={`command ${this.state.hidecommandinput ? "mincommand" : "height2"}`}
                         value={this.state.tawnycommand} 
                         onChange={this.updatecommand}

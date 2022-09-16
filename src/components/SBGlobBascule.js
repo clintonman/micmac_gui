@@ -131,7 +131,6 @@ class SBGlobBascule extends Component {
         if(nextProps.imageRegex !== this.props.imageRegex) {
             newState.saisiebascCommand = 'mm3d SaisieBascQT ' + nextProps.imageRegex + " " + newState.orientationin + " Measurements.xml";
             this.saisiebascOverride = false;
-            // newState.apericloudCommand = 'mm3d AperiCloud ' + nextProps.imageRegex + " " + newState.campariout + (!newState.withCam ? " WithCam=0" : "");
             this.buildapericloudcommand(newState);
             
             let commandarray = prepSaisieMasq("SBGlobBascule", newState, nextProps, false);
@@ -199,16 +198,6 @@ class SBGlobBascule extends Component {
                     </div>
 
                     <div className="endsection">
-                        {/* <input type="text"
-                            className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
-                            id="saisiemasqimgCommand"
-                            value={this.state.saisiemasqimgCommand}
-                            onChange={this.updatecommand} />
-                        <button id="opensaisiemask"
-                            onClick={this.openSaisieMasq}
-                            title="mask on 1 or more images to define the ground plane"
-                            className="contexthelp" data-help="SaisieMasqRun" data-position="right"
-                            onContextMenu={this.props.helpcontext}>Mask Image</button> */}
                         <p 
                             title="mask on 1 or more images to define the ground plane"
                             style={{fontSize:"1.2em"}}
@@ -336,7 +325,6 @@ class SBGlobBascule extends Component {
                             {this.state.apericloudran ? <Checkmark className="button-ran2"></Checkmark> : null} 3D Preview</button>
                     </div>
                     <textarea
-                        // className={`command_input ${this.state.hidecommandinput ? "command_hidden" : ""}`}
                         className={`command ${this.state.hidecommandinput ? "mincommand" : "height2"}`}
                         id="saisiemasqplyCommand"
                         value={this.state.saisiemasqplyCommand}

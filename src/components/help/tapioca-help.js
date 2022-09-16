@@ -157,8 +157,9 @@ tapiocahelp.HomolfilterMasq =
 <div>
     <h1>HomolfilterMasq</h1>
     <p>Used to remove tie points by mask filtering.</p>
-    <p>Use a global mask to be applied to all images - ex remove tie points created by fiducial marks on images</p>
+    <p>Use a global mask to be applied to all images - ex remove tie points created by fiducial marks on images. Any points outside the mask will be removed.</p>
     <p>Add individual masks to all images then run to only keep tie points that are inside the masks. All the images must have a mask.</p>
+    <p>The result of masking will automatically be used as input to the Schnaps tool.</p>
     <p>HomolMasqFiltered folder will contain the resulting masked tie point data.</p>
     <p><a href="https://micmac.ensg.eu/index.php/HomolFilterMasq" target="_blank"
             rel="noopener noreferrer">https://micmac.ensg.eu/index.php/HomolFilterMasq</a></p>
@@ -170,6 +171,7 @@ tapiocahelp.Schnaps =
     <p>The command Schnaps is used to clean and reduce tie points before any orientation, and without needing any
         order in the pictures. Its limitation is the user memory: it can’t be used if computer RAM is lower than Homol
         directory size.</p>
+    <p>Will automatically use the result of image masking.</p>
     <p>Can be used with tapioca line mode and low delta to add tie points between images.</p>
     <p>if Tapas fails or the 3d model has ghosting, can try running Schnaps to clean it up.</p>
     <p>The folder Homol_mini will contain the processed tie point data.</p>

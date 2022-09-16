@@ -90,9 +90,8 @@ class Tequila extends Component {
         let testPrevRun = props.mm3dRunList.find(val => {
             return val.name === "Tequila";
         });
+
         if(testPrevRun) {
-            //console.log("previous run")
-            //console.log(GetTimeStamp());
             const timestamp = this.GetTimeStamp();
             this.state.out = 'C3DC_' + c3dcmode + '_mesh_textured' + timestamp + '.ply';
             this.state.texture = 'C3DC_' + c3dcmode + '_mesh_UVtexture' + timestamp + '.jpg';
@@ -176,10 +175,6 @@ class Tequila extends Component {
                 <div style={{alignSelf:'center'}} id="plyfile">{this.state.plyFile}</div>
                 <div className="label-input_group">
                     <label htmlFor="orientation">Orientation</label>
-                    {/* <input id="orientation" type="text" 
-                        value={this.state.orientation}
-                        style={{width: "8em"}}
-                        onChange={this.updatecommand}/> */}
                     <select 
                             name="orientation" id="orientation" 
                             title="in orientation name"
