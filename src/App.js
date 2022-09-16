@@ -269,6 +269,10 @@ class App extends Component {
   loadRunState = loadRunState.bind(this);
 
   updateFPS = (event) => {
+    if(event.target.value <= 0) {
+      return;
+    }
+    
     this.setState({
       ...this.state,
       fps: event.target.value

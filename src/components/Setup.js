@@ -110,9 +110,13 @@ class Setup extends Component {
                             </button>
                         </div>
                         <div className="Setup__video">
-                            <label htmlFor="cam">FPS</label>
+                            <label htmlFor="cam" title="number of frames to extract for each second of video">Frames / Second</label>
                             <input type="number" name="fps" id="fps" max="4" min="0.01" step="0.01" value={this.props.fps} onChange={this.props.updateFPS}/>
-                            <button onClick={() => this.props.startVideoDialog(this.props.fps)}>
+                            <button 
+                                onClick={() => this.props.startVideoDialog(this.props.fps)}
+                                className="contexthelp" data-help="loadvideo" data-position="right"
+                                onContextMenu={this.props.helpcontext}
+                                title="extract jpeg images from a video file">
                                 Load Video
                             </button>
                         </div>
@@ -164,14 +168,8 @@ class Setup extends Component {
                             onClick={this.setexif} 
                             title="save custom exif data into the selected images"
                             disabled={!this.props.setupIsValid}>SetExif</button>
-
-
                     </div>
-                        {/* <div className="Controls__section">
-                            <label htmlFor="exifisset">Override EXIF lock
-                            <input type="checkbox" name="exifisset" id="exifisset"  value={this.state.exifisset} onChange={this.updateExifCommand}/>
-                            </label>
-                        </div> */}
+
 
                     <div className="Controls__section misc" style={{border:"none"}}>
                         <label htmlFor="">
@@ -203,7 +201,7 @@ class Setup extends Component {
                             <label htmlFor="">Max points
                                 <input type="number"
                                     style={{width:"7em"}}
-                                    name=""
+                                    title="maximum number of 3D points to display"
                                     id="max3dpoints"
                                     min={0}
                                     step={1000}
