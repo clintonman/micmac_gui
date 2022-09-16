@@ -187,7 +187,8 @@ const appData = new AppData({
   defaults: {
     mm3dPath: "mm3d",
     tempPath: tempDir,
-    max3dpoints: "1234567"
+    max3dpoints: "1234567",
+    ffmpegPath: "ffmpeg"
 }
 });
 exports.appData = appData;

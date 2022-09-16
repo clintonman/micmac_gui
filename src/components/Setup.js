@@ -109,12 +109,10 @@ class Setup extends Component {
                                 Copy Images
                             </button>
                         </div>
-                        <div>
+                        <div className="Setup__video">
                             <label htmlFor="cam">FPS</label>
                             <input type="number" name="fps" id="fps" max="4" min="0.01" step="0.01" value={this.props.fps} onChange={this.props.updateFPS}/>
-                            <button
-                                onClick={() => this.props.startVideoDialog(this.props.fps)}
-                            >
+                            <button onClick={() => this.props.startVideoDialog(this.props.fps)}>
                                 Load Video
                             </button>
                         </div>
@@ -227,6 +225,11 @@ class Setup extends Component {
                                         style={{marginBottom: "1em"}}
                                         onClick={this.props.selectTempPath}
                                         title="set the temporary files path">temp path</button>
+                                    <p>{this.props.ffmpegPath}</p>
+                                    <button 
+                                        style={{marginBottom: "1em"}}
+                                        onClick={this.props.selectFfmpegPath}
+                                        title="set the ffmpeg binary path">ffmpeg path</button>
 
                             </div>
                         </div>

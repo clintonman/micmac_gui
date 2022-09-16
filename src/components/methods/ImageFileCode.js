@@ -35,11 +35,6 @@ export const imageDrop = function(rawimagepaths) {
     this.res = ipcRenderer.sendSync('video-dialog', null);
 
     if(this.res) {
-      // this.startLoadingFiles = true;
-      // this.setState({...this.state, busy: true, procstatus:"loading video images"});
-      console.log("loading",this.res);
-      console.log("fps",fps)
-      // TODO run ffmpeg and save files where? same place
       this.startLoadingVideo = true;
       this.setState({...this.state, busy: true, procstatus:"loading video images"});
     }
@@ -49,24 +44,18 @@ export const imageDrop = function(rawimagepaths) {
       return;
     }
 
-    console.log(res[0])
-    console.log(this.state.fps)
-
-    //here do ffmpeg command
-    var thecommand = "C:\\Programs\\ffmpeg\\bin\\ffmpeg"
+    var thecommand = this.state.ffmpegPath;
     var commandarraytext = [];
-    // commandarraytext.push("C:\\Programs\\ffmpeg\\bin\\ffmpeg.exe");
+
     commandarraytext.push("-i");
     commandarraytext.push(res[0]);
     commandarraytext.push("-vf");
     commandarraytext.push("fps=" + this.state.fps);
-    // var bn = path.basename(res[0].split(".")[0]);// TODO better way get name without extension
+
     var basename = path.parse(res[0]).name + "%3d.jpg";
+
     var fullpath = path.join(path.dirname(res[0]) ,"extracted", basename)
-    console.log(basename)
-    console.log(fullpath)
     commandarraytext.push(fullpath);
-    console.log(commandarraytext.join(" "))
 
     //create extracted folder
     const extractedFolder = path.join(path.dirname(res[0]), "extracted");
@@ -81,31 +70,30 @@ export const imageDrop = function(rawimagepaths) {
       });
     }
 
-    // const bat = spawn(this.props.mm3dPath, commandarraytext, { cwd:this.props.tempDir });
     const bat = spawnSync(thecommand, commandarraytext);
-    console.log(bat)
-    //if bat.status == 0 then good
-    //TODO load the images
-    //create array of image paths then call imageLoad
-    if(bat.status !== 0) {
-      // think can pass error through stdout: outState
-      this.setState({...this.state, appDisabled: false, busy: false})
-    }
 
+    if(bat.status === null) {
+      let outState = "ERROR: " + bat.error.message;
+      this.setState({...this.state, procstatus: outState, appDisabled: false, busy: false})
+      return; 
+    }
+    if(bat.status !== 0) {
+      let outState = "ERROR";
+      this.setState({...this.state, procstatus: outState, appDisabled: false, busy: false})
+      return; 
+    }
+    
+    //create array of image paths then call imageLoad on return
     //get folder contents list
     let directoryItems = fs.readdirSync(extractedFolder);
-    console.log(directoryItems)
     let res2 = directoryItems.map((item) => {
       return path.join(extractedFolder, item);
     });
-    console.log(res2)
-    // this.setState({...this.state, appDisabled: false, busy: false})
-    return res2;
 
+    return res2;
   }
 
 export const imageLoad = function(res) {
-    // console.log("imageload")
     if (!res) {
       return;
     }

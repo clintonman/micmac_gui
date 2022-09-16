@@ -229,7 +229,7 @@ export function disableApp() {
 
     if(res) {
         var mm3d = path.join(path.dirname(res[0]), path.basename(res[0], path.extname(res[0])));
-        ipcRenderer.send('set-setting', ['mm3dPath', mm3d]);
+        // ipcRenderer.send('set-setting', ['mm3dPath', mm3d]);
         let setupIsValid = false;
         if(fs.existsSync(mm3d) && fs.existsSync(this.state.tempDir)) {
           console.log(path.basename(mm3d))
@@ -237,7 +237,7 @@ export function disableApp() {
             setupIsValid = true;
           }
         }
-        //windows .exe not needed for linus mac?
+        //windows ".exe", not needed for linux mac
         if(fs.existsSync(mm3d + ".exe") && fs.existsSync(this.state.tempDir)) {
           console.log(path.basename(mm3d))
           if(path.basename(mm3d) === "mm3d") {
@@ -247,11 +247,49 @@ export function disableApp() {
             }
           }
         }
-        this.setState({
-          ...this.state,
-          mm3dPath: mm3d,
-          validSetup:setupIsValid
-        });
+        if(setupIsValid) {
+          ipcRenderer.send('set-setting', ['mm3dPath', mm3d]);
+          this.setState({
+            ...this.state,
+            mm3dPath: mm3d,
+            validSetup:setupIsValid
+          });
+        }
+    }
+  }
+  export function ffmpegDialog() {
+    let res = ipcRenderer.sendSync('show-dialog', 'openFile');
+
+    if(res) {
+        var ffmpegPath = path.join(path.dirname(res[0]), path.basename(res[0], path.extname(res[0])));
+        
+        let setupIsValid = false;
+        if(fs.existsSync(ffmpegPath)) {
+          console.log(path.basename(ffmpegPath))
+          if(path.basename(ffmpegPath) === "ffmpeg") {
+            setupIsValid = true;
+          }
+        }
+        //windows .exe
+        if(fs.existsSync(ffmpegPath + ".exe")) {
+          console.log(path.basename(ffmpegPath))
+          if(path.basename(ffmpegPath) === "ffmpeg") {
+            setupIsValid = true;
+            if(process.platform === 'win32') {
+              window.alert("Restart MicMac GUI to finish setting the path.");
+            }
+          }
+        }
+        console.log(setupIsValid)
+
+        if(setupIsValid) {
+          ipcRenderer.send('set-setting', ['ffmpegPath', ffmpegPath]);
+          this.setState({
+            ...this.state,
+            ffmpegPath: ffmpegPath,
+            validSetup:setupIsValid
+          });
+        }
     }
   }
 
