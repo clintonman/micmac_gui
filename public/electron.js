@@ -205,6 +205,10 @@ ipcMain.on('get-user-data-path', (event, arg) => {
   event.returnValue = app.getPath('userData');
 });
 
+ipcMain.on('get-version', (event, arg) => {
+  event.returnValue = app.getVersion();
+});
+
 function createWindow () {
   // Create the browser window.
   //had to disable security to load images

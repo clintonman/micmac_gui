@@ -232,6 +232,7 @@ class Setup extends Component {
                             </div>
                         </div>
                         <button onClick={this.clearSettingsFiles} title="remove user settings files">Remove Settings</button>
+                        <p style={{marginTop: "2em", textAlign:"center"}}>MicMac GUI version: {this.props.micmacgui_version}</p>
                     </div>
                     
                 </div>

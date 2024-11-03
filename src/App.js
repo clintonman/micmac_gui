@@ -60,6 +60,8 @@ let ffmpegPath = ipcRenderer.sendSync('get-setting', 'ffmpegPath');
 const process = window.require('process');
 const globalEnv = process.env;
 
+const micmacgui_version = ipcRenderer.sendSync('get-version', null);
+
 //stop drag and drop default action for whole document
 document.ondragover = (ev) => { ev.preventDefault() }
 document.ondrop = (ev) => { ev.preventDefault() }
@@ -363,7 +365,8 @@ class App extends Component {
                   fps={this.state.fps}
                   updateFPS={this.updateFPS}
                   selectFfmpegPath={this.ffmpegDialog}
-                  ffmpegPath={this.state.ffmpegPath}>
+                  ffmpegPath={this.state.ffmpegPath}
+                  micmacgui_version={micmacgui_version}>
                 </Setup>
               )}/>
 
