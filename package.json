@@ -1,6 +1,6 @@
 {
   "name": "micmac_gui",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "author": "Clinton Reese <reese@clintons3d.com>",
   "description": "MicMac simple graphical user interface",
@@ -21,8 +21,8 @@
   "homepage": "./",
   "main": "public/electron.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "electron": "electron .",
