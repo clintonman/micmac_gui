@@ -111,6 +111,14 @@ ctrl-shift-I will show the chrome dev tools
 
 &nbsp;
 
+---
+
+__IMPORTANT : When developing on Windows use the Command Prompt terminal. Do not use a bash terminal.__
+
+---
+
+&nbsp;
+
 &nbsp;
 
 
