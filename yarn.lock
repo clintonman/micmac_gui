@@ -11203,17 +11203,10 @@ to-regex-range@^2.1.0:
     is-number "^3.0.0"
     repeat-string "^1.6.1"
 
-to-regex-range@^5.0.1:
+to-regex-range@^5.0.1, to-regex-range@~5.0.1:
   version "5.0.1"
   resolved "https://registry.npmjs.org/to-regex-range/-/to-regex-range-5.0.1.tgz"
   integrity sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
-  dependencies:
-    is-number "^7.0.0"
-
-to-regex-range@~4.0.2:
-  version "4.0.2"
-  resolved "https://registry.npmjs.org/to-regex-range/-/to-regex-range-4.0.2.tgz"
-  integrity sha512-sxk1o2k6PE/1pglSD23fhfgoTKNz3LT8FxfcBEqVDUjNzQV1VdAhipuiylH9kOm2qWsRTFO0mzRDXpLtm01XjQ==
   dependencies:
     is-number "^7.0.0"
 
